@@ -59,8 +59,8 @@ model OrderProduct {
 
 model CarouselBanner {
   id           String   @id @default(uuid())
-  imageUrl     String?   // Campo antigo (manter por compatibilidade)
-  imageMobile  String?  // Opcional
+  imageUrl     String?  
+  imageMobile  String?  
   imageTablet  String?
   imageLaptop  String?
   imageDesktop String?
