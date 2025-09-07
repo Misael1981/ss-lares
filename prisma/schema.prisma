@@ -58,12 +58,16 @@ model OrderProduct {
 }
 
 model CarouselBanner {
-  id          String   @id @default(uuid())
-  imageUrl    String
-  title       String?
-  description String?
-  order       Int      @default(0)
-  isActive    Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id           String   @id @default(uuid())
+  imageUrl     String?   // Campo antigo (manter por compatibilidade)
+  imageMobile  String?  // Opcional
+  imageTablet  String?
+  imageLaptop  String?
+  imageDesktop String?
+  title        String?
+  description  String?
+  order        Int      @default(0)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }

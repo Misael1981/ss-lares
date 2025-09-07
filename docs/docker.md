@@ -54,3 +54,16 @@ networks:
   sslares_network:
     driver: bridge
 ```
+
+```
+{
+        imageMobile:"https://imagemobile.webp",
+        imageTablet:"https://imageTavlet.webp",
+        imageDesktop:"https://imagedesktop.webp",
+        imageLaptop:"https://imagelAPtop.webp",
+        title: "Banner Principal",
+        description: "Banner principal, outdoor.",
+        order: 4,
+        isActive: true,
+      }
+```
