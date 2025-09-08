@@ -21,7 +21,7 @@ const CardProduct = ({ products }) => {
             className="rounded-2xl object-cover"
           />
         </div>
-        <div className="flex min-h-[120px] flex-col justify-between pt-3">
+        <div className="flex min-h-[150px] flex-col justify-between pt-3">
           <h3 className="line-clamp-2 text-center text-sm font-semibold leading-tight">
             {product.name}
           </h3>

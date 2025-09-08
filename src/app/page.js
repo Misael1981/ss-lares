@@ -7,7 +7,7 @@ export default function Home() {
     <div>
       <Header />
       <main>
-        <div className="p-5">
+        <div className="boxed p-5">
           <h3 className="text-xl">
             Ola, <strong>faça seu login</strong>
           </h3>

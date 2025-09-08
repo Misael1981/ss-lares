@@ -22,7 +22,7 @@ const ProductsCarousel = async () => {
 
   if (!products || products.length === 0) {
     return (
-      <section className="mb-32">
+      <section>
         <Subtitle>Produtos</Subtitle>
         <p className="py-8 text-center text-gray-500">
           Nenhum produto encontrado.
@@ -32,7 +32,7 @@ const ProductsCarousel = async () => {
   }
 
   return (
-    <section>
+    <section className="boxed">
       <Subtitle>Produtos</Subtitle>
       <ProductsCarouselClient products={products} />
     </section>
