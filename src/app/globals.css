@@ -89,3 +89,28 @@
     font-family: var(--font-poppins), sans-serif;
   }
 }
+
+/* Adicione no final do arquivo */
+
+/* Esconder scrollbar mas manter funcionalidade */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Smooth scroll para o carrossel */
+.overflow-x-auto {
+  scroll-behavior: smooth;
+}
+
+/* Limitar texto a 2 linhas */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

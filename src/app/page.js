@@ -10,8 +10,8 @@ export default function Home() {
         <div className="p-5">
           <h3 className="text-xl">
             Ola, <strong>faça seu login</strong>
-            <p>Sábado, 06 de Setembro de 2025</p>
           </h3>
+          <p className="text-gray-400">Sábado, 06 de Setembro de 2025</p>
         </div>
         <WelcomeSection />
         <ProductsCarousel />
