@@ -25,8 +25,15 @@ model Product {
   name          String
   slug          String         @unique
   description   String?
+  quantity      String?
+  height        String?
+  width         String?
+  length        String?
   price         Float
-  imageUrl      String
+  imageUrl      String[]
+  tags         String[]
+  salePrice    Float?
+  weight       Float?
   isAvailable   Boolean        @default(true)
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt

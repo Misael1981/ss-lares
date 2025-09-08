@@ -1,4 +1,5 @@
 import Header from "@/components/Header"
+import ProductsCarousel from "@/components/ProductsCarousel"
 import WelcomeSection from "@/components/WelcomeSection"
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
           </h3>
         </div>
         <WelcomeSection />
+        <ProductsCarousel />
       </main>
     </div>
   )
