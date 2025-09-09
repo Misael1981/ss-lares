@@ -1,7 +1,6 @@
 import Image from "next/image"
 import { Card, CardContent } from "../ui/card"
-import { Button } from "../ui/button"
-import { MenuIcon } from "lucide-react"
+import MobileMenuTrigger from "./components/MobileMenuTrigger"
 
 const Header = () => {
   return (
@@ -9,9 +8,8 @@ const Header = () => {
       <Card>
         <CardContent className="flex items-center justify-between p-4">
           <Image src="/logo.svg" alt="SSLares Logo" width={120} height={18} />
-          <Button size="icon" variant="outline">
-            <MenuIcon />
-          </Button>
+
+          <MobileMenuTrigger />
         </CardContent>
       </Card>
     </header>
