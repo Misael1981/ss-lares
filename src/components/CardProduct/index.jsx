@@ -18,6 +18,7 @@ const CardProduct = ({ products }) => {
             src={product.imageUrl?.[0] || "/next.svg"}
             alt={product.name || "Produto"}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 180px"
             className="rounded-2xl object-cover"
           />
         </div>

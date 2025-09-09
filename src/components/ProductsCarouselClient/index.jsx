@@ -2,16 +2,11 @@
 
 import Autoplay from "embla-carousel-autoplay"
 import CardProduct from "../CardProduct"
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselApi,
-} from "../ui/carousel"
+import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel"
 import { useState } from "react"
 
 const ProductsCarouselClient = ({ products }) => {
-  const [api, setApi] = useState(CarouselApi)
+  const [api, setApi] = useState()
   return (
     <Carousel
       className="w-full max-w-full"

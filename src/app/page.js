@@ -1,5 +1,6 @@
 import Header from "@/components/Header"
 import ProductsCarousel from "@/components/ProductsCarousel"
+import Services from "@/components/Services"
 import WelcomeSection from "@/components/WelcomeSection"
 
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
         </div>
         <WelcomeSection />
         <ProductsCarousel />
+        <Services />
       </main>
     </div>
   )
