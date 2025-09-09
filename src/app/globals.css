@@ -13,7 +13,7 @@
     --popover: 0 0% 99%;
     --popover-foreground: 0 0% 10%;
 
-    --primary: 346 93% 41%;
+    --primary: 343 93% 41%; /* #cb0735 */
     --primary-foreground: 0 0% 98%;
 
     --secondary: 0 0% 96%;
@@ -50,7 +50,7 @@
     --popover: 0 0% 12%;
     --popover-foreground: 0 0% 95%;
 
-    --primary: 0 85% 50%;
+    --primary: 343 93% 41%; /* #cb0735 */
     --primary-foreground: 0 0% 98%;
 
     --secondary: 0 0% 18%;

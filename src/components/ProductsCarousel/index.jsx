@@ -1,6 +1,8 @@
 import { prismaWithRetry } from "@/lib/prisma"
 import Subtitle from "../SubTitle"
 import ProductsCarouselClient from "../ProductsCarouselClient"
+import TagsQuickSearch from "../TagsQuickSearch"
+import Search from "../Search"
 
 const ProductsCarousel = async () => {
   try {
@@ -19,6 +21,7 @@ const ProductsCarousel = async () => {
       return (
         <section>
           <Subtitle>Produtos</Subtitle>
+
           <p className="py-8 text-center text-gray-500">
             Nenhum produto encontrado.
           </p>
@@ -28,6 +31,8 @@ const ProductsCarousel = async () => {
     return (
       <section className="boxed">
         <Subtitle>Produtos</Subtitle>
+        <TagsQuickSearch />
+        <Search />
         <ProductsCarouselClient products={products} />
       </section>
     )
