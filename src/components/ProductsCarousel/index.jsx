@@ -1,42 +1,47 @@
-import { db } from "@/lib/prisma"
-import CardProduct from "../CardProduct"
+import { prismaWithRetry } from "@/lib/prisma"
 import Subtitle from "../SubTitle"
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "../ui/carousel"
 import ProductsCarouselClient from "../ProductsCarouselClient"
 
 const ProductsCarousel = async () => {
-  const products = await db.product.findMany({
-    where: {
-      isAvailable: true,
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-  })
+  try {
+    const products = await prismaWithRetry(() =>
+      prisma.product.findMany({
+        where: {
+          isAvailable: true,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      }),
+    )
 
-  if (!products || products.length === 0) {
+    if (!products || products.length === 0) {
+      return (
+        <section>
+          <Subtitle>Produtos</Subtitle>
+          <p className="py-8 text-center text-gray-500">
+            Nenhum produto encontrado.
+          </p>
+        </section>
+      )
+    }
     return (
-      <section>
+      <section className="boxed">
         <Subtitle>Produtos</Subtitle>
-        <p className="py-8 text-center text-gray-500">
-          Nenhum produto encontrado.
-        </p>
+        <ProductsCarouselClient products={products} />
       </section>
     )
-  }
+  } catch (error) {
+    console.error("Erro ao carregar produtos:", error)
 
-  return (
-    <section className="boxed">
-      <Subtitle>Produtos</Subtitle>
-      <ProductsCarouselClient products={products} />
-    </section>
-  )
+    // Fallback: mostrar conteúdo estático
+    return (
+      <div className="p-8 text-center">
+        <h2>Bem-vindo!</h2>
+        <p>Carregando conteúdo...</p>
+      </div>
+    )
+  }
 }
 
 export default ProductsCarousel
