@@ -5,7 +5,7 @@ import SidebarMenu from "../SidebarMenu"
 
 const MobileMenuTrigger = () => {
   return (
-    <div className="md:hidden"> {/* Só aparece em mobile */}
+    <div className="lg:hidden">
       <Sheet>
         <SheetTrigger asChild>
           <Button size="icon" variant="outline">

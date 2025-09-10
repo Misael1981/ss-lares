@@ -1,26 +1,20 @@
 import { Button } from "@/components/ui/button"
 import { SheetContent } from "@/components/ui/sheet"
-import { Switch } from "@/components/ui/switch"
 import {
   Calculator,
   FileUser,
   House,
   LogOutIcon,
-  MoonIcon,
   Store,
-  SunIcon,
   UserRoundIcon,
 } from "lucide-react"
 import Image from "next/image"
+import ThemeButton from "../ThemeButton"
 
 const SidebarMenu = () => {
   return (
     <SheetContent className="flex flex-col justify-between">
-      <div className="flex items-center gap-2">
-        <SunIcon />
-        <Switch />
-        <MoonIcon />
-      </div>
+      <ThemeButton />
       <div className="mt-4 flex flex-col items-center">
         <Image src="/logo.svg" alt="SSLares Logo" width={100} height={15} />
       </div>

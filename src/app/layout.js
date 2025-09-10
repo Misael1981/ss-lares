@@ -1,5 +1,6 @@
 import { Montserrat, Poppins } from "next/font/google"
 import "./globals.css"
+import { ThemeProvider } from "@/lib/theme-context"
 
 // Configura a fonte Montserrat para os t\u00edtulos
 const montserrat = Montserrat({
@@ -23,9 +24,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${poppins.variable} ${montserrat.variable}`}>
-        {children}
+    <html lang="pt-BR" suppressHydrationWarning>
+      <body className={`${montserrat.variable} ${poppins.variable} antialiased`}>
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   )
