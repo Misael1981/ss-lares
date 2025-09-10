@@ -13,32 +13,32 @@
   }
 
   :root {
-    --background: 0 0% 98%; /* branco suave */
+    --background: 355 15% 97%; /* branco com toque de vermelho */
     --foreground: 0 0% 10%; /* cinza quase preto */
 
-    --card: 0 0% 80%; /* quase branco */
+    --card: 355 20% 96%; /* card com leve tom vermelho */
     --card-foreground: 0 0% 10%;
 
-    --popover: 0 0% 99%;
+    --popover: 355 10% 98%;
     --popover-foreground: 0 0% 10%;
 
     --primary: 343 93% 41%; /* #cb0735 */
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 0 0% 80%;
+    --secondary: 355 25% 92%; /* secondary com tom vermelho */
     --secondary-foreground: 0 0% 15%;
 
-    --muted: 0 0% 95%;
+    --muted: 355 20% 94%; /* muted com tom vermelho */
     --muted-foreground: 0 0% 40%;
 
-    --accent: 0 0% 94%;
+    --accent: 355 25% 93%; /* accent com tom vermelho */
     --accent-foreground: 0 0% 15%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
+    --border: 355 15% 88%; /* border com tom vermelho */
+    --input: 355 15% 88%; /* input com tom vermelho */
     --ring: 0 0% 15%;
 
     --chart-1: 12 76% 61%;

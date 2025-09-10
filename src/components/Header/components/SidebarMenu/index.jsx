@@ -1,15 +1,10 @@
 import { Button } from "@/components/ui/button"
 import { SheetContent } from "@/components/ui/sheet"
-import {
-  Calculator,
-  FileUser,
-  House,
-  LogOutIcon,
-  Store,
-  UserRoundIcon,
-} from "lucide-react"
+import { LogOutIcon } from "lucide-react"
 import Image from "next/image"
 import ThemeButton from "../ThemeButton"
+import NavMenu from "../NavMenu"
+import ButtonLogin from "../ButtonLogin"
 
 const SidebarMenu = () => {
   return (
@@ -19,38 +14,10 @@ const SidebarMenu = () => {
         <Image src="/logo.svg" alt="SSLares Logo" width={100} height={15} />
       </div>
       <div className="mt-8 border-b border-solid pb-6">
-        <Button className="bg-[#8162ff] text-white hover:bg-[#6d4edb]">
-          <UserRoundIcon />
-          Login
-        </Button>
+        <ButtonLogin />
       </div>
       <nav className="border-b border-solid pb-6">
-        <ul className="space-y-4">
-          <li>
-            <Button variant="ghost" className="text-xl">
-              <House style={{ width: "24px", height: "24px" }} />
-              Home
-            </Button>
-          </li>
-          <li>
-            <Button variant="ghost" className="text-xl">
-              <Store style={{ width: "24px", height: "24px" }} />
-              Produtos
-            </Button>
-          </li>
-          <li>
-            <Button variant="ghost" className="text-xl">
-              <FileUser style={{ width: "24px", height: "24px" }} />
-              Sobre nós
-            </Button>
-          </li>
-          <li>
-            <Button variant="ghost" className="text-xl">
-              <Calculator style={{ width: "24px", height: "24px" }} />
-              Calculadora
-            </Button>
-          </li>
-        </ul>
+        <NavMenu />
       </nav>
       <div className="border-b border-solid pb-6">
         <ul className="flex items-center justify-center gap-4">
