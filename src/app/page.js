@@ -7,7 +7,6 @@ import WelcomeSection from "@/components/WelcomeSection"
 export default function Home() {
   return (
     <div>
-      <Header />
       <main>
         <WelcomeSection />
         <div className="boxed p-5">
