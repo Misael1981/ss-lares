@@ -1,3 +1,4 @@
+import Contact from "@/components/Contact"
 import Footer from "@/components/Footer"
 import Header from "@/components/Header"
 import ProductsCarousel from "@/components/ProductsCarousel"
@@ -17,8 +18,8 @@ export default function Home() {
         </div>
         <ProductsCarousel />
         <Services />
+        <Contact />
       </main>
-      <Footer />
     </div>
   )
 }

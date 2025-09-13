@@ -15,14 +15,14 @@ const About = () => {
             className="object-cover"
           />
         </div>
-        <div className="p-4">
+        <div className="boxed p-4">
           <Subtitle>Sobre nós</Subtitle>
           <h1 className="text-center text-3xl font-bold">
             Aqui vai um pedacinho da nosso história
           </h1>
         </div>
       </div>
-      <div className="p-4 text-center">
+      <div className="boxed p-4 text-center">
         <p>
           A Sslares é uma empresa familiar com sede em Minas gerais. Fabricamos
           produtos para atender o público da construção civil. Oferecemos
@@ -59,11 +59,13 @@ const About = () => {
           necessidades provenientes do ramo da construção civil.
         </p>
       </div>
-      <section className="p-4">
-        <Subtitle>Nossa missão</Subtitle>
+      <section className="boxed p-4">
+        <div>
+          <Subtitle>Nossa missão</Subtitle>
+        </div>
         <div className="flex flex-wrap justify-center gap-4">
           <Card>
-            <CardContent className="flex max-w-[300px] flex-col items-center justify-center gap-4 p-6">
+            <CardContent className="flex max-w-[270px] flex-col items-center justify-center gap-4 p-6">
               <Image
                 src={"/image/mission.svg"}
                 width={150}

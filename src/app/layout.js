@@ -2,6 +2,7 @@ import { Montserrat, Poppins } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/lib/theme-context"
 import Header from "@/components/Header"
+import Footer from "@/components/Footer"
 
 // Configura a fonte Montserrat para os t\u00edtulos
 const montserrat = Montserrat({
@@ -32,6 +33,7 @@ export default function RootLayout({ children }) {
         <ThemeProvider>
           <Header />
           {children}
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

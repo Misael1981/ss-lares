@@ -52,7 +52,9 @@ const midias = [
 const Contact = () => {
   return (
     <section className="p-0">
-      <Subtitle>Contato</Subtitle>
+      <div className="boxed">
+        <Subtitle>Contato</Subtitle>
+      </div>
       <div className="w-full lg:flex lg:items-center lg:justify-center">
         <div className="relative h-[450px] w-[1023px] max-w-[100%] overflow-hidden">
           <Image
@@ -63,13 +65,13 @@ const Contact = () => {
           />
           {/* Overlay para conteúdo sobre a imagem */}
           <div className="absolute inset-0 flex items-center justify-center bg-black/50 p-4">
-            <div className="text-center text-white">
+            <div className="flex h-[80%] flex-col items-center justify-around text-center text-white">
               <h3 className="mb-2 text-2xl font-bold">
                 Entre em <strong className="text-[#cb0735]">contato</strong> e
                 saiba mais sobre{" "}
                 <strong className="text-[#cb0735]">nossas atualizações</strong>
               </h3>
-              <div className="flex flex-col items-center justify-around gap-10">
+              <div className="flex flex-col items-center justify-around gap-10 lg:flex-row">
                 <div className="w-[250px]">
                   <h4 className="mb-2 text-xl font-semibold text-[#cb0735]">
                     Nossas Mídias
