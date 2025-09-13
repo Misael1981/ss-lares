@@ -1,3 +1,4 @@
+import Contact from "@/components/Contact"
 import Subtitle from "@/components/SubTitle"
 import { Card, CardContent } from "@/components/ui/card"
 import Image from "next/image"
@@ -62,7 +63,7 @@ const About = () => {
         <Subtitle>Nossa missão</Subtitle>
         <div className="flex flex-wrap justify-center gap-4">
           <Card>
-            <CardContent className="flex flex-col items-center justify-center gap-4 p-6">
+            <CardContent className="flex max-w-[300px] flex-col items-center justify-center gap-4 p-6">
               <Image
                 src={"/image/mission.svg"}
                 width={150}
@@ -70,7 +71,7 @@ const About = () => {
                 alt="Missão"
               />
               <h3 className="text-2xl font-bold">Missão</h3>
-              <p className="text-center text-sm text-gray-400">
+              <p className="text-center text-sm text-gray-500">
                 Nossa missão é a ser uma empresa de maior credibilidade em nosso
                 ramo, para que possamos atender às expectativas dos nossos
                 clientes, satisfazendo suas necessidades. Ser reconhecida como
@@ -79,7 +80,7 @@ const About = () => {
             </CardContent>
           </Card>
           <Card>
-            <CardContent className="flex flex-col items-center justify-center gap-4 p-6">
+            <CardContent className="flex max-w-[300px] flex-col items-center justify-center gap-4 p-6">
               <Image
                 src={"/image/vision.svg"}
                 width={150}
@@ -87,7 +88,7 @@ const About = () => {
                 alt="Visão"
               />
               <h3 className="text-2xl font-bold">Visão</h3>
-              <p className="text-center text-sm text-gray-400">
+              <p className="text-center text-sm text-gray-500">
                 Para que possamos atender às expectativas dos nossos clientes,
                 satisfazendo suas necessidades. Ser reconhecida como uma empresa
                 sólida e confiável.
@@ -95,7 +96,7 @@ const About = () => {
             </CardContent>
           </Card>
           <Card>
-            <CardContent className="flex flex-col items-center justify-center gap-4 p-6">
+            <CardContent className="flex max-w-[300px] flex-col items-center justify-center gap-4 p-6">
               <Image
                 src={"/image/values.svg"}
                 width={150}
@@ -103,7 +104,7 @@ const About = () => {
                 alt="Valores"
               />
               <h3 className="text-2xl font-bold">Valores</h3>
-              <p className="text-center text-sm text-gray-400">
+              <p className="text-center text-sm text-gray-500">
                 Respeitar normas da empresa e regras e leis dos mercados;
                 Aprimorar a qualidade dos produtos, para que tenhamos uma
                 melhoria contínua, e possamos superar nossos resultados.
@@ -111,7 +112,7 @@ const About = () => {
             </CardContent>
           </Card>
           <Card>
-            <CardContent className="flex flex-col items-center justify-center gap-4 p-6">
+            <CardContent className="flex max-w-[300px] flex-col items-center justify-center gap-4 p-6">
               <Image
                 src={"/image/guarantee.svg"}
                 width={150}
@@ -119,7 +120,7 @@ const About = () => {
                 alt="Garantia"
               />
               <h3 className="text-2xl font-bold">Garantia</h3>
-              <p className="text-center text-sm text-gray-400">
+              <p className="text-center text-sm text-gray-500">
                 Todos produtos possui obrigatoriamente um prazo de garantia
                 legal de 30 (trinta) dias para defeitos em produtos não
                 duráveis, e 90 (noventa) dias para produtos duráveis.
@@ -128,6 +129,7 @@ const About = () => {
           </Card>
         </div>
       </section>
+      <Contact />
     </main>
   )
 }
