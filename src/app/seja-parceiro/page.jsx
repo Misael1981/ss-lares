@@ -1,26 +1,18 @@
 import Subtitle from "@/components/SubTitle"
-import Image from "next/image"
 import CardPartner from "./components/CardPartner"
 import { dataPartners } from "./data/data-partner"
+import FormPartner from "./components/FormPartner"
+import HeroSection from "@/components/HeroSection"
 
 const SejaParceiro = () => {
   return (
     <main className="min-h-screen">
-      <section className="flex flex-col items-center justify-center bg-gradient-to-t from-[#cb0735] via-[#de6262] to-transparent p-4 text-center">
-        <h1 className="my-5 text-3xl font-bold text-[#cb0735]">
-          Que tal ser nosso parceiro?!
-        </h1>
-        <p className="text-lg">
-          Aumente seu faturamento representando a{" "}
-          <strong className="text-[#cb0735]">SSLARES</strong> na sua região.
-        </p>
-        <Image
-          src="/image/partner.svg"
-          alt="Parceiro"
-          width={500}
-          height={500}
-        />
-      </section>
+      <HeroSection
+        title="Que tal ser nosso parceiro?"
+        description="Aumente seu faturamento representando a SSLARES na sua região."
+        imageUrl="/image/partner.svg"
+      />
+
       <section className="boxed p-4">
         <Subtitle>Como funciona</Subtitle>
         <p>
@@ -37,6 +29,9 @@ const SejaParceiro = () => {
         {dataPartners.map((partner) => (
           <CardPartner key={partner.id} data={partner} />
         ))}
+      </section>
+      <section className="mt-6 p-4 lg:p-0">
+        <FormPartner />
       </section>
     </main>
   )

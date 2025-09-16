@@ -1,4 +1,5 @@
 import Contact from "@/components/Contact"
+import HeroSection from "@/components/HeroSection"
 import Subtitle from "@/components/SubTitle"
 import { Card, CardContent } from "@/components/ui/card"
 import Image from "next/image"
@@ -7,19 +8,16 @@ const About = () => {
   return (
     <main>
       <div className="">
-        <div className="relative aspect-[16/8] w-full overflow-hidden">
-          <Image
-            src="/image/about.png"
-            alt="Sobre Nós"
-            fill
-            className="object-cover"
-          />
-        </div>
+        <HeroSection
+          title="Mais que uma empresa, uma trajetória"
+          description="Mais do que falar sobre nós, queremos compartilhar a trajetória que nos trouxe até aqui — porque acreditamos que a história é a base de tudo o que construímos."
+          imageUrl="/image/about-us.svg"
+        />
         <div className="boxed p-4">
           <Subtitle>Sobre nós</Subtitle>
-          <h1 className="text-center text-3xl font-bold">
+          <h3 className="text-center text-3xl font-bold">
             Aqui vai um pedacinho da nosso história
-          </h1>
+          </h3>
         </div>
       </div>
       <div className="boxed p-4 text-center">
