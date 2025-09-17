@@ -51,7 +51,7 @@ const FormPartner = () => {
     formState: { errors },
   } = form
   return (
-    <div className="">
+    <div className="lg:pr-4">
       <div className="boxed">
         <Subtitle>Seja nosso revendedor</Subtitle>
       </div>

@@ -139,3 +139,24 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* Logo otimizada */
+.logo-container {
+  @apply relative;
+}
+
+.logo-light {
+  @apply block;
+}
+
+.logo-dark {
+  @apply hidden;
+}
+
+.dark .logo-light {
+  @apply hidden;
+}
+
+.dark .logo-dark {
+  @apply block;
+}

@@ -5,9 +5,9 @@ import Image from "next/image"
 
 const CardPartner = ({ data }) => {
   return (
-    <div className="max-w-[380px]">
+    <div className="max-w-[380px] lg:max-w-[330px]">
       <Card className="border border-[#cb0735] shadow-lg shadow-[#cb0735]/20 transition-all duration-300 hover:shadow-xl hover:shadow-[#cb0735]/30">
-        <CardContent className="p-4 md:h-[600px]">
+        <CardContent className="p-4 md:h-[670px]">
           <div className="flex flex-col items-center justify-center gap-4 md:h-full md:justify-between">
             <div className="flex items-center justify-center">
               <Image

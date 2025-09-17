@@ -25,11 +25,11 @@ const Services = () => {
   return (
     <section className="boxed p-4">
       <Subtitle>Nossos Serviços</Subtitle>
-      <div className="flex flex-wrap items-center justify-center gap-4">
+      <div className="flex flex-wrap items-center justify-center gap-4 lg:justify-between">
         {dataServices.map((item) => (
           <div
             key={item.title}
-            className="flex aspect-square w-[390px] max-w-[100%] flex-col items-center justify-center gap-2 rounded-2xl bg-brand-red p-5"
+            className="flex aspect-square w-[330px] max-w-[100%] flex-col items-center justify-center gap-2 rounded-2xl bg-brand-red p-5"
           >
             <Image src={item.image} width={150} height={150} alt={item.name} />
             <h3 className="text-xl font-semibold text-white">{item.title}</h3>
