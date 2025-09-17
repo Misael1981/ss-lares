@@ -1,11 +1,18 @@
-import { prismaWithRetry } from "@/lib/prisma"
+import prisma, { prismaWithRetry } from "@/lib/prisma"
 import CardWelcome from "./components/CardWelcome"
 
 const WelcomeSection = async () => {
   try {
     // Usar retry em vez de prisma direto
     const banners = await prismaWithRetry(() =>
-      prisma.carouselBanner.findMany(),
+      prisma.carouselBanner.findMany({
+        where: {
+          isActive: true,
+        },
+        orderBy: {
+          order: "asc",
+        },
+      }),
     )
 
     return (
