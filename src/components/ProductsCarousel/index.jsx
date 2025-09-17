@@ -1,4 +1,4 @@
-import { prismaWithRetry } from "@/lib/prisma"
+import prisma, { prismaWithRetry } from "@/lib/prisma"
 import Subtitle from "../SubTitle"
 import ProductsCarouselClient from "../ProductsCarouselClient"
 import TagsQuickSearch from "../TagsQuickSearch"
@@ -21,13 +21,13 @@ const ProductsCarousel = async () => {
       return (
         <section>
           <Subtitle>Produtos</Subtitle>
-
           <p className="py-8 text-center text-gray-500">
             Nenhum produto encontrado.
           </p>
         </section>
       )
     }
+    
     return (
       <section className="boxed">
         <Subtitle>Produtos</Subtitle>
@@ -38,12 +38,13 @@ const ProductsCarousel = async () => {
     )
   } catch (error) {
     console.error("Erro ao carregar produtos:", error)
-
-    // Fallback: mostrar conteúdo estático
+    
+    // Fallback melhorado
     return (
       <div className="p-8 text-center">
-        <h2>Bem-vindo!</h2>
-        <p>Carregando conteúdo...</p>
+        <h2>Produtos</h2>
+        <p className="text-red-500">Erro ao conectar com o banco de dados</p>
+        <p className="text-sm text-gray-500">Erro: {error.message}</p>
       </div>
     )
   }
