@@ -2,49 +2,47 @@ import { Button } from "@/components/ui/button"
 import { Calculator, FileUser, Handshake, House, Store } from "lucide-react"
 import Link from "next/link"
 
+const itemLista = [
+  {
+    name: "Home",
+    link: "/",
+    icon: <House style={{ width: "24px", height: "24px" }} />,
+  },
+  {
+    name: "Produtos",
+    link: "/produtos",
+    icon: <Store style={{ width: "24px", height: "24px" }} />,
+  },
+  {
+    name: "Sobre nós",
+    link: "/sobre-nos",
+    icon: <FileUser style={{ width: "24px", height: "24px" }} />,
+  },
+  {
+    name: "Seja um parceiro",
+    link: "/seja-parceiro",
+    icon: <Handshake style={{ width: "24px", height: "24px" }} />,
+  },
+  {
+    name: "Calculadora",
+    link: "/calculadora",
+    icon: <Calculator style={{ width: "24px", height: "24px" }} />,
+  },
+]
+
 const NavMenu = () => {
   return (
     <ul className="space-y-4 lg:flex lg:items-center lg:gap-2 lg:space-y-0">
-      <li>
-        <Button variant="ghost" className="text-xl" asChild>
-          <Link href="/">
-            <House style={{ width: "24px", height: "24px" }} />
-            Home
-          </Link>
-        </Button>
-      </li>
-      <li>
-        <Button variant="ghost" className="text-xl" asChild>
-          <Link href="/produtos">
-            <Store style={{ width: "24px", height: "24px" }} />
-            Produtos
-          </Link>
-        </Button>
-      </li>
-      <li>
-        <Button variant="ghost" className="text-xl" asChild>
-          <Link href="/sobre-nos">
-            <FileUser style={{ width: "24px", height: "24px" }} />
-            Sobre nós
-          </Link>
-        </Button>
-      </li>
-      <li>
-        <Button variant="ghost" className="text-xl" asChild>
-          <Link href="/seja-parceiro">
-            <Handshake style={{ width: "24px", height: "24px" }} />
-            Seja um parceiro
-          </Link>
-        </Button>
-      </li>
-      <li>
-        <Button variant="ghost" className="text-xl" asChild>
-          <Link href="/calculadora">
-            <Calculator style={{ width: "24px", height: "24px" }} />
-            Calculadora
-          </Link>
-        </Button>
-      </li>
+      {itemLista.map((item) => (
+        <li key={item.name}>
+          <Button variant="ghost" className="text-base" asChild>
+            <Link href={item.link}>
+              {item.icon}
+              {item.name}
+            </Link>
+          </Button>
+        </li>
+      ))}
     </ul>
   )
 }
