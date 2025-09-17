@@ -51,8 +51,8 @@ const midias = [
 
 const Contact = () => {
   return (
-    <section className="p-0">
-      <div className="boxed">
+    <section className="bg-gray-50 py-16">
+      <div className="container mx-auto px-4">
         <Subtitle>Contato</Subtitle>
       </div>
       <div className="w-full lg:flex lg:items-center lg:justify-center">
@@ -106,7 +106,7 @@ const Contact = () => {
         </div>
         <div className="relative h-[450px] w-[1023px] max-w-[100%] overflow-hidden">
           <Image
-            src="/image/map.png"
+            src="/image/map.PNG"
             alt="Google map"
             fill
             className="object-cover"
