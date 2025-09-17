@@ -1,8 +1,5 @@
-import Contact from "@/components/Contact"
 import HeroSection from "@/components/HeroSection"
 import Subtitle from "@/components/SubTitle"
-import { Card, CardContent } from "@/components/ui/card"
-import Image from "next/image"
 import MissionCard from "./components/MissionCard"
 
 const About = () => {
@@ -94,7 +91,6 @@ const About = () => {
           />
         </div>
       </section>
-      <Contact />
     </main>
   )
 }

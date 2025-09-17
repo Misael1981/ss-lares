@@ -1,6 +1,3 @@
-import Contact from "@/components/Contact"
-import Footer from "@/components/Footer"
-import Header from "@/components/Header"
 import ProductsCarousel from "@/components/ProductsCarousel"
 import Services from "@/components/Services"
 import WelcomeSection from "@/components/WelcomeSection"
@@ -17,7 +14,6 @@ export default function Home() {
       </div>
       <ProductsCarousel />
       <Services />
-      <Contact />
     </main>
   )
 }
