@@ -4,7 +4,7 @@ import ThemeButton from "../ThemeButton"
 
 const DesktopNav = () => {
   return (
-    <div className="hidden w-[70%] justify-between lg:flex">
+    <div className="hidden justify-between lg:flex">
       <NavMenu />
       <div className="flex items-center gap-4">
         <ButtonLogin />
