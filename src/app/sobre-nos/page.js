@@ -3,6 +3,7 @@ import HeroSection from "@/components/HeroSection"
 import Subtitle from "@/components/SubTitle"
 import { Card, CardContent } from "@/components/ui/card"
 import Image from "next/image"
+import MissionCard from "./components/MissionCard"
 
 const About = () => {
   return (
@@ -10,7 +11,7 @@ const About = () => {
       <div className="">
         <HeroSection
           title="Mais que uma empresa, uma trajetória"
-          description="Mais do que falar sobre nós, queremos compartilhar a trajetória que nos trouxe até aqui — porque acreditamos que a história é a base de tudo o que construímos."
+          description="Mais do que falar sobre nós, queremos compartilhar a trajetória que nos trouxe até aqui — nossa história é a base de tudo o que construímos."
           imageUrl="/image/about-us.svg"
         />
         <div className="boxed p-4">
@@ -62,71 +63,35 @@ const About = () => {
           <Subtitle>Nossa missão</Subtitle>
         </div>
         <div className="flex flex-wrap justify-center gap-4">
-          <Card>
-            <CardContent className="flex max-w-[270px] flex-col items-center justify-center gap-4 p-6">
-              <Image
-                src={"/image/mission.svg"}
-                width={150}
-                height={150}
-                alt="Missão"
-              />
-              <h3 className="text-2xl font-bold">Missão</h3>
-              <p className="text-center text-sm text-gray-500">
-                Nossa missão é a ser uma empresa de maior credibilidade em nosso
+          <MissionCard
+            title="Missão"
+            description="Nossa missão é a ser uma empresa de maior credibilidade em nosso
                 ramo, para que possamos atender às expectativas dos nossos
                 clientes, satisfazendo suas necessidades. Ser reconhecida como
-                uma empresa sólida e confiável.
-              </p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="flex max-w-[300px] flex-col items-center justify-center gap-4 p-6">
-              <Image
-                src={"/image/vision.svg"}
-                width={150}
-                height={150}
-                alt="Visão"
-              />
-              <h3 className="text-2xl font-bold">Visão</h3>
-              <p className="text-center text-sm text-gray-500">
-                Para que possamos atender às expectativas dos nossos clientes,
+                uma empresa sólida e confiável."
+            imageUrl="/image/mission.svg"
+          />
+          <MissionCard
+            title="Visão"
+            description="Para que possamos atender às expectativas dos nossos clientes,
                 satisfazendo suas necessidades. Ser reconhecida como uma empresa
-                sólida e confiável.
-              </p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="flex max-w-[300px] flex-col items-center justify-center gap-4 p-6">
-              <Image
-                src={"/image/values.svg"}
-                width={150}
-                height={150}
-                alt="Valores"
-              />
-              <h3 className="text-2xl font-bold">Valores</h3>
-              <p className="text-center text-sm text-gray-500">
-                Respeitar normas da empresa e regras e leis dos mercados;
+                sólida e confiável."
+            imageUrl="/image/vision.svg"
+          />
+          <MissionCard
+            title="Valores"
+            description="Respeitar normas da empresa e regras e leis dos mercados;
                 Aprimorar a qualidade dos produtos, para que tenhamos uma
-                melhoria contínua, e possamos superar nossos resultados.
-              </p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="flex max-w-[300px] flex-col items-center justify-center gap-4 p-6">
-              <Image
-                src={"/image/guarantee.svg"}
-                width={150}
-                height={150}
-                alt="Garantia"
-              />
-              <h3 className="text-2xl font-bold">Garantia</h3>
-              <p className="text-center text-sm text-gray-500">
-                Todos produtos possui obrigatoriamente um prazo de garantia
+                melhoria contínua, e possamos superar nossos resultados."
+            imageUrl="/image/values.svg"
+          />
+          <MissionCard
+            title="Garantia"
+            description="Todos produtos possui obrigatoriamente um prazo de garantia
                 legal de 30 (trinta) dias para defeitos em produtos não
-                duráveis, e 90 (noventa) dias para produtos duráveis.
-              </p>
-            </CardContent>
-          </Card>
+                duráveis, e 90 (noventa) dias para produtos duráveis."
+            imageUrl="/image/guarantee.svg"
+          />
         </div>
       </section>
       <Contact />
