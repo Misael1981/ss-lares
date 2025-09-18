@@ -24,16 +24,13 @@ const ProductDetails = ({ product }) => {
 
   return (
     <div className="mx-auto max-w-7xl">
-      {/* 🔙 BOTÃO VOLTAR */}
       <Button variant="ghost" onClick={() => router.back()} className="mb-6">
         <ArrowLeft className="mr-2 h-4 w-4" />
         Voltar aos Produtos
       </Button>
 
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-        {/* 🖼️ GALERIA DE IMAGENS */}
         <div className="space-y-4">
-          {/* IMAGEM PRINCIPAL */}
           <Card className="overflow-hidden">
             <CardContent className="p-0">
               <Image
@@ -41,7 +38,7 @@ const ProductDetails = ({ product }) => {
                 alt={product.name}
                 width={600}
                 height={600}
-                className="h-96 w-full object-cover"
+                className="h-96 w-full object-contain"
               />
             </CardContent>
           </Card>
@@ -76,42 +73,19 @@ const ProductDetails = ({ product }) => {
               {product.name}
             </h1>
             <div className="mb-4 flex items-center gap-2">
-              <Badge variant={product.isAvailable ? "default" : "secondary"}>
+              <Badge
+                variant={product.isAvailable ? "default" : "secondary"}
+                className={
+                  product.isAvailable ? "bg-green-500 hover:bg-green-600" : ""
+                }
+              >
                 {product.isAvailable ? "Disponível" : "Indisponível"}
               </Badge>
             </div>
-            <p className="mb-4 text-4xl font-bold text-[#cb0735]">
+            <p className="mb-4 text-4xl font-bold text-orange-500">
               R$ {product.price?.toFixed(2)}
             </p>
           </div>
-
-          {/* DESCRIÇÃO */}
-          <Card>
-            <CardContent className="p-6">
-              <h3 className="mb-3 text-lg font-semibold">Descrição</h3>
-              <p className="leading-relaxed text-gray-600 dark:text-gray-300">
-                {product.description}
-              </p>
-            </CardContent>
-          </Card>
-
-          {/* ESPECIFICAÇÕES */}
-          {product.specifications && (
-            <Card>
-              <CardContent className="p-6">
-                <h3 className="mb-3 text-lg font-semibold">Especificações</h3>
-                <div className="space-y-2">
-                  {/* AQUI VOCÊ PODE ADICIONAR SPECS ESPECÍFICAS */}
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Categoria:</span>
-                    <span className="font-medium">
-                      {product.category || "Geral"}
-                    </span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )}
 
           {/* AÇÕES */}
           <Card>
@@ -143,7 +117,7 @@ const ProductDetails = ({ product }) => {
                 <div className="flex gap-3">
                   <Button
                     onClick={handleAddToCart}
-                    className="flex-1 bg-[#cb0735] hover:bg-[#a00529]"
+                    className="flex-1 bg-green-500 text-white hover:bg-green-600"
                     disabled={!product.isAvailable}
                   >
                     <ShoppingCart className="mr-2 h-4 w-4" />
@@ -161,6 +135,33 @@ const ProductDetails = ({ product }) => {
               </div>
             </CardContent>
           </Card>
+
+          {/* DESCRIÇÃO */}
+          <Card>
+            <CardContent className="p-6">
+              <h3 className="mb-3 text-lg font-semibold">Descrição</h3>
+              <p className="leading-relaxed text-gray-600 dark:text-gray-300">
+                {product.description}
+              </p>
+            </CardContent>
+          </Card>
+
+          {/* ESPECIFICAÇÕES */}
+          {product.specifications && (
+            <Card>
+              <CardContent className="p-6">
+                <h3 className="mb-3 text-lg font-semibold">Especificações</h3>
+                <div className="space-y-2">
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Categoria:</span>
+                    <span className="font-medium">
+                      {product.category || "Geral"}
+                    </span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
         </div>
       </div>
     </div>

@@ -4,23 +4,17 @@ import ProductDetails from "./components/ProductDetails"
 
 const Produto = async ({ params }) => {
   const { id } = params
-  
-  console.log("🔍 ID recebido:", id)
-  console.log("🔍 Tipo do ID:", typeof id)
 
   try {
     const product = await prismaWithRetry(() =>
       prisma.product.findUnique({
         where: {
-          id: id, // ✅ USAR DIRETO, SEM parseInt()!
+          id: id,
         },
-      })
+      }),
     )
 
-    console.log("🔍 Produto encontrado:", product)
-
     if (!product) {
-      console.log("❌ Produto não encontrado para ID:", id)
       notFound()
     }
 
@@ -32,7 +26,6 @@ const Produto = async ({ params }) => {
       </main>
     )
   } catch (error) {
-    console.error("❌ Erro ao carregar produto:", error)
     return (
       <main className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-8">
