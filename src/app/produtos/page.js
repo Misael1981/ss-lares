@@ -3,11 +3,7 @@ import prisma, { prismaWithRetry } from "@/lib/prisma"
 import CardProductStory from "./components/CardProductStory"
 
 const Produtos = async () => {
-  console.log("🚀 Iniciando busca de produtos...")
-
   try {
-    console.log("📡 Conectando ao banco...")
-
     const products = await prismaWithRetry(() =>
       prisma.product.findMany({
         where: {
@@ -16,13 +12,9 @@ const Produtos = async () => {
         orderBy: {
           createdAt: "desc",
         },
-      })
+      }),
     )
 
-    console.log("✅ Produtos encontrados:", products?.length || 0)
-    console.log("📦 Primeiro produto:", products?.[0]) // 🔥 VER ESTRUTURA
-
-    // 🎯 EARLY RETURN - MAIS LIMPO!
     if (!products || products.length === 0) {
       return (
         <main className="h-[calc(100vh-170px)]">
@@ -36,7 +28,6 @@ const Produtos = async () => {
       )
     }
 
-    // 🚀 SUCESSO - RENDERIZAR PRODUTOS
     return (
       <main className="">
         <div className="boxed">
@@ -50,9 +41,6 @@ const Produtos = async () => {
       </main>
     )
   } catch (error) {
-    console.error("❌ Erro completo:", error)
-    console.error("❌ Stack trace:", error.stack)
-    console.error("Erro ao buscar produtos:", error)
     return (
       <main className="">
         <div className="boxed">
