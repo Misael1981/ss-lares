@@ -6,11 +6,16 @@ import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
 import { ArrowLeft, ShoppingCart, Heart, Share2 } from "lucide-react"
 import { useRouter } from "next/navigation"
+import { useCart } from "@/contexts/CartContext" // ← 🎯 IMPORTAR O HOOK
+import SheetCart from "@/components/SheetCart"
 
 const ProductDetails = ({ product }) => {
   const router = useRouter()
   const [selectedImage, setSelectedImage] = useState(0)
   const [quantity, setQuantity] = useState(1)
+
+  // 🛒 USAR O HOOK DO CARRINHO
+  const { addItem, openCart } = useCart()
 
   // 🖼️ GARANTIR QUE IMAGES É ARRAY
   const images = Array.isArray(product.imageUrl)
@@ -18,8 +23,12 @@ const ProductDetails = ({ product }) => {
     : [product.imageUrl]
 
   const handleAddToCart = () => {
-    // 🛒 IMPLEMENTAR CARRINHO DEPOIS
-    console.log("Adicionar ao carrinho:", { product, quantity })
+    // 🛒 ADICIONAR AO CARRINHO E ABRIR
+    addItem(product)
+    openCart() // 🎯 Abre o carrinho automaticamente
+
+    // 🎉 Feedback visual (opcional)
+    console.log("✅ Produto adicionado:", product.name)
   }
 
   return (
@@ -123,6 +132,8 @@ const ProductDetails = ({ product }) => {
                     <ShoppingCart className="mr-2 h-4 w-4" />
                     Adicionar ao Carrinho
                   </Button>
+
+                  <SheetCart />
 
                   <Button variant="outline" size="icon">
                     <Heart className="h-4 w-4" />

@@ -1,6 +1,7 @@
 import { Montserrat, Poppins } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/lib/theme-context"
+import { CartProvider } from "@/contexts/CartContext" // ← 🎯 IMPORTAR
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
 
@@ -35,9 +36,11 @@ export default function RootLayout({ children }) {
         className={`${montserrat.variable} ${poppins.variable} antialiased`}
       >
         <ThemeProvider>
-          <Header />
-          {children}
-          <Footer />
+          <CartProvider> {/* ← 🎯 ENVOLVER TUDO */}
+            <Header />
+            {children}
+            <Footer />
+          </CartProvider> {/* ← 🎯 FECHAR AQUI */}
         </ThemeProvider>
       </body>
     </html>
