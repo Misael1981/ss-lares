@@ -19,9 +19,13 @@ const poppins = Poppins({
 })
 
 export const metadata = {
-  title: "SSLares - Qualidade que Constr\u00f3i Confian\u00e7a",
-  description:
-    "Descubra a cole\u00e7\u00e3o de m\u00f3veis de alta qualidade da SSLares.",
+  title: "SSLares - Qualidade que Constrói Confiança",
+  description: "Descubra produtos de alta qualidade da SSLares.",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon-16x16.png",
+    apple: "/apple-touch-icon.png",
+  },
 }
 
 export default function RootLayout({ children }) {
