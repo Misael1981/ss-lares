@@ -125,7 +125,7 @@ async function seedDataBase() {
           "A Desempenadeira com Espuma é utilizada para o nivelamento de massas, argamassas e monocapas. Ideal para acabamento em massa fina e reboco.",
         price: 45.0,
         imageUrl: [
-          "https://res.cloudinary.com/dsxpenevq/image/upload/v1757192583/areia-1_jkl012.webp",
+          "https://res.cloudinary.com/dsxpenevq/image/upload/v1757279795/desempenadeira-espuma_shs07a.png",
           "https://res.cloudinary.com/dsxpenevq/image/upload/v1757192584/areia-2_mno345.webp",
         ],
         quantity: "Caixa com 6 unidades",
