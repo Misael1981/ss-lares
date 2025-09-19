@@ -1,5 +1,6 @@
+import CalculatorPopup from "@/components/Calculator"
 import { Button } from "@/components/ui/button"
-import { Calculator, FileUser, Handshake, House, Store } from "lucide-react"
+import { FileUser, Handshake, House, Store } from "lucide-react"
 import Link from "next/link"
 
 const itemLista = [
@@ -23,11 +24,6 @@ const itemLista = [
     link: "/seja-parceiro",
     icon: <Handshake style={{ width: "24px", height: "24px" }} />,
   },
-  {
-    name: "Calculadora",
-    link: "/calculadora",
-    icon: <Calculator style={{ width: "24px", height: "24px" }} />,
-  },
 ]
 
 const NavMenu = () => {
@@ -43,6 +39,9 @@ const NavMenu = () => {
           </Button>
         </li>
       ))}
+      <li>
+        <CalculatorPopup />
+      </li>
     </ul>
   )
 }
