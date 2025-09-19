@@ -1,4 +1,4 @@
-import CalculatorPopup from "@/components/Calculator"
+import CalculatorPopup from "@/components/CalculatorPopup"
 import { Button } from "@/components/ui/button"
 import { FileUser, Handshake, House, Store } from "lucide-react"
 import Link from "next/link"
