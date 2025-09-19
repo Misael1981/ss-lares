@@ -68,17 +68,13 @@ const SheetCart = () => {
                   >
                     <div className="flex-shrink-0">
                       <Image
-                        src={
-                          item.image ||
-                          "https://via.placeholder.com/80x80/e5e7eb/6b7280?text=Produto"
-                        }
+                        src={item.image || "/image/tablet.webp"}
                         alt={item.name || "Produto"}
                         width={80}
                         height={80}
                         className="rounded-lg border object-cover"
                         onError={(e) => {
-                          e.target.src =
-                            "https://via.placeholder.com/80x80/e5e7eb/6b7280?text=Produto"
+                          e.target.src = "/image/tablet.webp"
                         }}
                       />
                     </div>

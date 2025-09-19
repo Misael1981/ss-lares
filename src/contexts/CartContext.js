@@ -163,8 +163,8 @@ export function CartProvider({ children }) {
 
   // 🎯 Funções do carrinho
   const addItem = (product) => {
-    // 🔍 DEBUG: Vamos ver o que tem no produto
     console.log('🛒 Produto sendo adicionado:', product)
+    console.log('🖼️ ImageUrl do produto:', product.imageUrl)
     
     dispatch({
       type: CART_ACTIONS.ADD_ITEM,
@@ -172,11 +172,15 @@ export function CartProvider({ children }) {
         id: product.id,
         name: product.name,
         price: product.price,
-        // 🎯 GARANTIR QUE SEMPRE TENHA UMA IMAGEM VÁLIDA:
-        image: product.imageUrl || product.images?.[0] || "/image/placeholder.png",
+        // 🎯 SE FOR ARRAY, PEGAR O PRIMEIRO:
+        image: Array.isArray(product.imageUrl) 
+          ? product.imageUrl[0] 
+          : product.imageUrl || "/image/tablet.webp",
         slug: product.slug
       }
     })
+    
+    console.log('✅ Item salvo no carrinho')
   }
 
   const removeItem = (productId) => {
