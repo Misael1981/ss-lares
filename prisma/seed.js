@@ -77,7 +77,7 @@ async function seedDataBase() {
       },
     ]
 
-    // 🔥 PRODUTOS - AQUI ESTÁ A MÁGICA!
+    //  PRODUTOS
     const products = [
       {
         name: "Cunha",
@@ -298,27 +298,42 @@ async function seedDataBase() {
       },
     ]
 
+    //  CATÁLOGOS
+    const catalogs = [
+      {
+        title: "Catálogo SSLares 2025",
+        description: "Catálogo completo de produtos",
+        fileUrl:
+          // URL que você pegou do Cloudinary
+          "https://res.cloudinary.com/dspxpenveq/image/upload/v1695240292/catologo-sslares_nt0fqq.pdf", // URL que você pegou do Cloudinary
+        fileName: "catalogo-sslares-2025.pdf",
+        isActive: true,
+      },
+    ]
+
     // SEED DOS BANNERS
-    console.log("🌱 Iniciando seed dos banners do carousel...")
     for (const banner of carouselBanners) {
       await prisma.carouselBanner.create({
         data: banner,
       })
     }
 
-    // 🔥 SEED DOS PRODUTOS - AQUI É A NOVA PARTE!
-    console.log("🛠️ Iniciando seed dos produtos...")
+    //  SEED DOS PRODUTOS - VERSÃO SEGURA!
     for (const product of products) {
-      await prisma.product.create({
-        data: product,
+      await prisma.product.upsert({
+        where: { slug: product.slug },
+        update: product,
+        create: product,
       })
     }
 
-    console.log("✅ Seed concluído com sucesso!")
-    console.log(
-      `📊 ${carouselBanners.length} banners criados no banco de dados`,
-    )
-    console.log(`🛠️ ${products.length} produtos criados no banco de dados`)
+    // Seed dos CATÁLOGOS
+    // ... existing code ...
+    for (const catalog of catalogs) {
+      await prisma.catalog.create({ data: catalog })
+    }
+
+    console.log("✅ Seed realizado com sucesso!")
   } catch (error) {
     console.error("❌ Erro ao executar o seed:", error)
   } finally {
