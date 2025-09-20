@@ -1,8 +1,7 @@
 import { Montserrat, Poppins } from "next/font/google"
 import "./globals.css"
-import Header from "@/components/Header"
-import Footer from "@/components/Footer"
 import AllProviders from "./providers"
+import ConditionalWrapper from "./ConditionalWrapper"
 
 // Configura a fonte Montserrat para os t\u00edtulos
 const montserrat = Montserrat({
@@ -35,9 +34,7 @@ export default function RootLayout({ children }) {
         className={`${montserrat.variable} ${poppins.variable} antialiased`}
       >
         <AllProviders>
-          <Header />
-          {children}
-          <Footer />
+          <ConditionalWrapper>{children}</ConditionalWrapper>
         </AllProviders>
       </body>
     </html>

@@ -4,7 +4,8 @@ import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
 
-const handler = NextAuth({
+// 🔥 EXPORTAR authOptions
+export const authOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
@@ -67,7 +68,8 @@ const handler = NextAuth({
             name: user.name,
             phone: user.phone,
             email: user.email,
-            image: user.image
+            image: user.image,
+            isAdmin: user.isAdmin // 🔥 IMPORTANTE: incluir isAdmin
           }
           
         } catch (error) {
@@ -97,6 +99,8 @@ const handler = NextAuth({
   pages: {
     signIn: '/auth/signin',
   },
-})
+}
+
+const handler = NextAuth(authOptions)
 
 export { handler as GET, handler as POST }
