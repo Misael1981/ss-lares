@@ -1,9 +1,8 @@
 import { Montserrat, Poppins } from "next/font/google"
 import "./globals.css"
-import { ThemeProvider } from "@/lib/theme-context"
-import { CartProvider } from "@/contexts/CartContext" // ← 🎯 IMPORTAR
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
+import AllProviders from "./providers"
 
 // Configura a fonte Montserrat para os t\u00edtulos
 const montserrat = Montserrat({
@@ -31,17 +30,15 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="pt-BR" suppressHydrationWarning>
+    <html lang="pt-BR">
       <body
         className={`${montserrat.variable} ${poppins.variable} antialiased`}
       >
-        <ThemeProvider>
-          <CartProvider> {/* ← 🎯 ENVOLVER TUDO */}
-            <Header />
-            {children}
-            <Footer />
-          </CartProvider> {/* ← 🎯 FECHAR AQUI */}
-        </ThemeProvider>
+        <AllProviders>
+          <Header />
+          {children}
+          <Footer />
+        </AllProviders>
       </body>
     </html>
   )

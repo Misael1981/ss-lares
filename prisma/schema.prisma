@@ -8,16 +8,60 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  name      String
-  email     String   @unique
-  password  String
-  phone     String?
-  address   String?
-  isAdmin   Boolean  @default(false)
+  id            String    @id @default(uuid())
+  name          String?   
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?   // ✨ ADICIONAR ESTA LINHA!
+  password      String?   
+  phone         String?   @unique
+  phoneVerified DateTime?
+  address       String?
+  orders        Order[]
+  isAdmin       Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  Account       Account[]
+  Session       Session[]
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  orders    Order[]
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
 }
 
 model Product {
@@ -31,9 +75,9 @@ model Product {
   length        String?
   price         Float
   imageUrl      String[]
-  tags         String[]
-  salePrice    Float?
-  weight       Float?
+  tags          String[]
+  salePrice     Float?
+  weight        Float?
   isAvailable   Boolean        @default(true)
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
@@ -66,8 +110,8 @@ model OrderProduct {
 
 model CarouselBanner {
   id           String   @id @default(uuid())
-  imageUrl     String?  
-  imageMobile  String?  
+  imageUrl     String?
+  imageMobile  String?
   imageTablet  String?
   imageLaptop  String?
   imageDesktop String?
@@ -81,10 +125,10 @@ model CarouselBanner {
 
 model Catalog {
   id          String   @id @default(uuid())
-  title       String   
-  description String?  
-  fileUrl     String   
-  fileName    String   
+  title       String
+  description String?
+  fileUrl     String
+  fileName    String
   isActive    Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
