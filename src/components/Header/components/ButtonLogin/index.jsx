@@ -30,7 +30,7 @@ const ButtonLogin = () => {
             Login
           </Button>
         </DialogTrigger>
-        <DialogContent className="max-w-[90%]">
+        <DialogContent className="w-[400px] max-w-[90%]">
           <DialogHeader>
             <DialogTitle>Faça seu login</DialogTitle>
             <DialogDescription>
