@@ -1,3 +1,6 @@
+"use client"
+
+import { signOut, useSession } from "next-auth/react"
 import { Button } from "@/components/ui/button"
 import { SheetContent } from "@/components/ui/sheet"
 import { LogOutIcon } from "lucide-react"
@@ -5,16 +8,41 @@ import Image from "next/image"
 import ThemeButton from "../ThemeButton"
 import NavMenu from "../NavMenu"
 import ButtonLogin from "../ButtonLogin"
+import { Avatar, AvatarImage } from "@/components/ui/avatar"
+import LogoImage from "../LogoImage"
 
 const SidebarMenu = () => {
+  const { data } = useSession()
+
+  const handleLogout = async () => {
+    await signOut({
+      callbackUrl: "/",
+    })
+  }
   return (
     <SheetContent className="flex flex-col justify-between">
       <ThemeButton />
       <div className="mt-4 flex flex-col items-center">
-        <Image src="/logo.svg" alt="SSLares Logo" width={100} height={15} />
+        <LogoImage />
       </div>
       <div className="mt-8 border-b border-solid pb-6">
-        <ButtonLogin />
+        {data?.user ? (
+          <div className="flex items-center gap-2">
+            <Avatar>
+              <AvatarImage src={data?.user?.image} />
+            </Avatar>
+            <div className="min-w-0 flex-1 overflow-hidden">
+              <h3 className="truncate text-xl font-medium">
+                {data?.user?.name}
+              </h3>
+              <p className="truncate text-sm leading-tight text-gray-400">
+                {data?.user?.email}
+              </p>
+            </div>
+          </div>
+        ) : (
+          <ButtonLogin />
+        )}
       </div>
       <nav className="border-b border-solid pb-6">
         <NavMenu />
@@ -40,10 +68,12 @@ const SidebarMenu = () => {
         </ul>
       </div>
       <div>
-        <Button className="w-full">
-          <LogOutIcon style={{ width: "24px", height: "24px" }} />
-          Sair da conta
-        </Button>
+        {data?.user && (
+          <Button className="w-full" onClick={handleLogout}>
+            <LogOutIcon style={{ width: "24px", height: "24px" }} />
+            Sair da conta
+          </Button>
+        )}
       </div>
     </SheetContent>
   )
