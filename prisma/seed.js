@@ -304,8 +304,7 @@ async function seedDataBase() {
         title: "Catálogo SSLares 2025",
         description: "Catálogo completo de produtos",
         fileUrl:
-          // URL que você pegou do Cloudinary
-          "https://res.cloudinary.com/dspxpenveq/image/upload/v1695240292/catologo-sslares_nt0fqq.pdf", // URL que você pegou do Cloudinary
+          "https://res.cloudinary.com/dsxpenevq/image/upload/v1758306852/catalago-sslares_nt0fqq.pdf",
         fileName: "catalogo-sslares-2025.pdf",
         isActive: true,
       },
