@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -17,6 +16,8 @@ import z from "zod"
 import { useForm } from "react-hook-form"
 import { Textarea } from "@/components/ui/textarea"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { toast } from "sonner"
+import { useState } from "react"
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -33,13 +34,11 @@ const formSchema = z.object({
   }),
 })
 
-const onSubmit = (values) => {
-  console.log(values)
-}
-
 const FormPartner = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  
   const form = useForm({
-    resolver: zodResolver(formSchema), // ← Faltou o zodResolver!
+    resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
       email: "",
@@ -47,9 +46,35 @@ const FormPartner = () => {
       city: "",
     },
   })
-  const {
-    formState: { errors },
-  } = form
+
+  const onSubmit = async (values) => {
+    setIsSubmitting(true)
+    
+    try {
+      const response = await fetch('/api/seja-parceiro', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      })
+
+      const result = await response.json()
+
+      if (response.ok) {
+        toast.success(result.message || 'Cadastro realizado com sucesso!')
+        form.reset()
+      } else {
+        toast.error(result.error || 'Erro ao realizar cadastro')
+      }
+    } catch (error) {
+      console.error('Erro:', error)
+      toast.error('Erro ao enviar formulário')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   return (
     <div className="lg:pr-4">
       <div className="boxed">
@@ -134,8 +159,12 @@ const FormPartner = () => {
                     </FormItem>
                   )}
                 />
-                <Button className="w-full" type="submit">
-                  Cadastrar
+                <Button 
+                  className="w-full" 
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Cadastrando...' : 'Cadastrar'}
                 </Button>
               </form>
             </div>

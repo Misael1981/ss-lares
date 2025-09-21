@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/sidebar"
 import {
   LayoutDashboard,
+  ListOrdered,
   ScanQrCode,
   Settings,
   Store,
@@ -25,22 +26,22 @@ import {
 const items = [
   {
     title: "Painel Principal",
-    url: "#",
+    url: "/dashboard",
     icon: LayoutDashboard,
   },
   {
     title: "Banner Principal",
-    url: "#",
+    url: "/dashboard/banner-principal",
     icon: ScanQrCode,
   },
   {
     title: "Produtos",
-    url: "#",
+    url: "/dashboard/produtos", // ✅ CORRIGIDO
     icon: Store,
   },
   {
-    title: "Usuários",
-    url: "#",
+    title: "Usuários", // ✅ NOVO
+    url: "/dashboard/usuarios",
     icon: Users,
   },
   {
