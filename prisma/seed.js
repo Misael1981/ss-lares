@@ -343,6 +343,7 @@ async function seedDataBase() {
           create: {
             street: "Rua José Ribeiro Coutinho",
             number: "499",
+            neighborhood: "Bairro Primavera",
             city: "Congonhal",
             state: "MG",
             zipCode: null,

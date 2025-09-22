@@ -3,9 +3,12 @@
 import { Loader } from "@googlemaps/js-api-loader"
 import { useEffect, useRef, useState } from "react"
 
-const MapsCard = ({ address = "SS Lares", lat = -18.9146, lng = -48.2754 }) => {
+const MapsCard = ({
+  address = "Rua José Ribeiro Coutinho, 499, Bairro Primavera, Congonhal, MG, Brasil",
+}) => {
   const mapRef = useRef(null)
   const [map, setMap] = useState(null)
+  const centerRef = useRef({ lat: -22.1508, lng: -45.8611 }) // fallback Congonhal/MG
 
   useEffect(() => {
     const initMap = async () => {
@@ -19,28 +22,37 @@ const MapsCard = ({ address = "SS Lares", lat = -18.9146, lng = -48.2754 }) => {
         const { Map } = await loader.importLibrary("maps")
         const { Marker } = await loader.importLibrary("marker")
 
-        const position = { lat, lng }
+        const geocoder = new google.maps.Geocoder()
 
-        const mapInstance = new Map(mapRef.current, {
-          center: position,
-          zoom: 15,
-          // 🔥 CONFIGURAÇÕES IMPORTANTES
-          disableDefaultUI: false,
-          zoomControl: true,
-          mapTypeControl: false,
-          scaleControl: false,
-          streetViewControl: false,
-          rotateControl: false,
-          fullscreenControl: true,
+        geocoder.geocode({ address }, (results, status) => {
+          let position = centerRef.current
+
+          if (status === "OK" && results[0]) {
+            const location = results[0].geometry.location
+            position = { lat: location.lat(), lng: location.lng() }
+            centerRef.current = position
+          } else {
+            console.error("Geocoding falhou:", status)
+          }
+
+          const mapInstance = new Map(mapRef.current, {
+            center: position,
+            zoom: 16,
+            disableDefaultUI: false,
+            zoomControl: true,
+            mapTypeControl: false,
+            streetViewControl: false,
+            fullscreenControl: true,
+          })
+
+          new Marker({
+            position,
+            map: mapInstance,
+            title: address,
+          })
+
+          setMap(mapInstance)
         })
-
-        new Marker({
-          position: position,
-          map: mapInstance,
-          title: address,
-        })
-
-        setMap(mapInstance)
       } catch (error) {
         console.error("Erro ao carregar Google Maps:", error)
       }
@@ -49,20 +61,17 @@ const MapsCard = ({ address = "SS Lares", lat = -18.9146, lng = -48.2754 }) => {
     if (mapRef.current) {
       initMap()
     }
-  }, [address, lat, lng])
+  }, [address])
 
-  // 🚀 TRIGGER RESIZE QUANDO O CONTAINER MUDA
+  // 🔥 Mantém mapa responsivo no resize
   useEffect(() => {
     if (map) {
       const handleResize = () => {
         google.maps.event.trigger(map, "resize")
-        map.setCenter({ lat, lng })
+        map.setCenter(centerRef.current)
       }
 
-      // Trigger resize após um pequeno delay
-      const timeoutId = setTimeout(handleResize, 100)
-
-      // Listener para mudanças de tamanho da janela
+      const timeoutId = setTimeout(handleResize, 200)
       window.addEventListener("resize", handleResize)
 
       return () => {
@@ -70,15 +79,11 @@ const MapsCard = ({ address = "SS Lares", lat = -18.9146, lng = -48.2754 }) => {
         window.removeEventListener("resize", handleResize)
       }
     }
-  }, [map, lat, lng])
+  }, [map])
 
   return (
     <div className="h-[200px] w-full overflow-hidden rounded-lg border">
-      <div
-        ref={mapRef}
-        className="h-full w-full"
-        style={{ minHeight: "200px" }}
-      />
+      <div ref={mapRef} className="h-full w-full" />
     </div>
   )
 }

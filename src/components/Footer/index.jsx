@@ -15,8 +15,8 @@ const Footer = async () => {
     <footer className="mt-4">
       <Card>
         <CardContent className="p-4">
-          <div className="flex flex-wrap items-center justify-around">
-            <div className="w-[400px] p-6">
+          <div className="pb flex max-w-[100%] flex-wrap justify-center gap-6">
+            <div className="w-full p-6 lg:w-[400px]">
               <LogoImage size="h-14" />
               <h2 className="mb-3 mt-2 text-lg font-semibold">
                 Qualidade que constrói o futuro

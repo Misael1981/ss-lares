@@ -17,7 +17,7 @@ const Contact = ({ companyData }) => {
     return `(${ddd}) 9${number}`
   }
   return (
-    <div className="w-[400px] border">
+    <div className="max-w-[90%]">
       <h2 className="mb-4 text-lg font-semibold">Contato</h2>
 
       {companyData?.phones?.length === 0 ? (
