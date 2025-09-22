@@ -133,3 +133,37 @@ model Catalog {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+model CompanyInfo {
+  id        Int        @id @default(autoincrement())
+  name      String     @default("SS Lares")
+  email     String
+  phones    Phone[]    
+  address   Address?   
+  social    Json?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model Phone {
+  id          Int      @id @default(autoincrement())
+  label       String   
+  contactName String?  
+  number      String
+  companyId   Int
+  company     CompanyInfo @relation(fields: [companyId], references: [id])
+}
+
+model Address {
+  id        Int      @id @default(autoincrement())
+  street    String   
+  number    String   
+  city      String
+  state     String
+  zipCode   String?
+  companyId Int      @unique
+  company   CompanyInfo @relation(fields: [companyId], references: [id])
+}
+
+
+

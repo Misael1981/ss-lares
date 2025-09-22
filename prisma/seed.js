@@ -327,10 +327,43 @@ async function seedDataBase() {
     }
 
     // Seed dos CATÁLOGOS
-    // ... existing code ...
     for (const catalog of catalogs) {
       await prisma.catalog.create({ data: catalog })
     }
+
+    //  SEED DA EMPRESA
+    await prisma.companyInfo.create({
+      data: {
+        name: "SS Lares",
+        email: "sslaresmg@gmail.com",
+        social: {
+          instagram: "https://www.instagram.com/sslaresmg1/", // 👈 Removi as aspas extras
+        },
+        address: {
+          create: {
+            street: "Rua José Ribeiro Coutinho",
+            number: "499",
+            city: "Congonhal",
+            state: "MG",
+            zipCode: null,
+          },
+        },
+        phones: {
+          create: [
+            {
+              label: "Admin",
+              contactName: "Tayliner",
+              number: "+553591972424",
+            },
+            {
+              label: "Vendas",
+              contactName: "Ivan",
+              number: "+553591528076",
+            },
+          ],
+        },
+      },
+    })
 
     console.log("✅ Seed realizado com sucesso!")
   } catch (error) {
