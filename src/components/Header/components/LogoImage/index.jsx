@@ -1,8 +1,10 @@
 import Image from "next/image"
 
-const LogoImage = () => {
+const LogoImage = ({ size = "h-10", className = "" }) => {
   return (
-    <div className="logo-container flex h-10 w-auto items-center">
+    <div
+      className={`logo-container flex w-auto items-center ${size} ${className}`}
+    >
       <Image
         src="/logo.svg"
         alt="SSLares Logo"

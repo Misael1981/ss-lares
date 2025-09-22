@@ -1,6 +1,7 @@
 import HeroSection from "@/components/HeroSection"
 import Subtitle from "@/components/SubTitle"
 import MissionCard from "./components/MissionCard"
+import Footer from "@/components/Footer"
 
 const About = () => {
   return (
@@ -91,6 +92,7 @@ const About = () => {
           />
         </div>
       </section>
+      <Footer />
     </main>
   )
 }

@@ -14,7 +14,6 @@ export default function ConditionalWrapper({ children }) {
     <>
       {!isDashboard && <Header />}
       <main>{children}</main>
-      {!isDashboard && <Footer />}
       {!isDashboard && <FloatingWhatsApp />}
     </>
   )

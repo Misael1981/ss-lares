@@ -3,6 +3,7 @@ import CardPartner from "./components/CardPartner"
 import { dataPartners } from "./data/data-partner"
 import FormPartner from "./components/FormPartner"
 import HeroSection from "@/components/HeroSection"
+import Footer from "@/components/Footer"
 
 const SejaParceiro = () => {
   return (
@@ -33,6 +34,7 @@ const SejaParceiro = () => {
       <section className="mt-6 p-4 lg:p-0">
         <FormPartner />
       </section>
+      <Footer />
     </main>
   )
 }

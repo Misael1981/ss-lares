@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer"
 import ProductsCarousel from "@/components/ProductsCarousel"
 import Services from "@/components/Services"
 import WelcomeSection from "@/components/WelcomeSection"
@@ -10,6 +11,7 @@ export default function Home() {
       <WelcomeUser />
       <ProductsCarousel />
       <Services />
+      <Footer />
     </main>
   )
 }
