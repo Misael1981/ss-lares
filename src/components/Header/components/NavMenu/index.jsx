@@ -41,7 +41,7 @@ const NavMenu = () => {
         </li>
       ))}
       
-      {/* 🎯 Componente separado para Dashboard */}
+      {/* 🎯 Botão Dashboard (só aparece para admins) */}
       <DashboardButton />
       
       <li>

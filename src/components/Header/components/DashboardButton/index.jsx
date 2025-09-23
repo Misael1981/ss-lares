@@ -7,8 +7,10 @@ import Link from "next/link"
 const DashboardButton = () => {
   const { data: session, status } = useSession()
 
+  // 🔄 Loading state - evita flash
+  if (status === "loading") return null
+  
   // 🔒 Só mostra se estiver logado E for admin
-  if (status === "loading") return null // Evita flash durante carregamento
   if (!session?.user?.isAdmin) return null
 
   return (
