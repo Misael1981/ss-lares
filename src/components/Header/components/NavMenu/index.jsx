@@ -1,4 +1,5 @@
 import CalculatorPopup from "@/components/CalculatorPopup"
+import DashboardButton from "../DashboardButton"
 import { Button } from "@/components/ui/button"
 import { FileUser, Handshake, House, Store } from "lucide-react"
 import Link from "next/link"
@@ -39,6 +40,10 @@ const NavMenu = () => {
           </Button>
         </li>
       ))}
+      
+      {/* 🎯 Componente separado para Dashboard */}
+      <DashboardButton />
+      
       <li>
         <CalculatorPopup />
       </li>
