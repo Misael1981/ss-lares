@@ -12,15 +12,15 @@ const FreteCard = () => {
           Antes de finalizar sua compra, escolha a distribuidora e digite o CEP
           para calcular o frete do seu pedido.
         </p>
-        <div className="flex items-center justify-center gap-2 p-4">
+        <div className="flex flex-wrap items-center justify-center gap-2 p-4">
           <Button variant="outline" className="bg-blue-500 text-white">
             📦 Correios
           </Button>
-          <Button variant="outline" className="bg-green-500 text-white">
-            🚛 Braspress
+          <Button variant="outline" className="bg-orange-500 text-white">
+            🚚 Braspress
           </Button>
-          <Button variant="outline" className="bg-purple-500 text-white">
-            🚚 Paulineris
+          <Button variant="outline" className="bg-green-800 text-white">
+            🚛 Paulineris
           </Button>
         </div>
         <div className="flex items-center justify-between gap-2">
