@@ -89,7 +89,7 @@ const SheetCart = () => {
 
                       {/* CONTROLES DE QUANTIDADE */}
                       <div className="mt-3 flex items-center justify-between">
-                        <div className="flex items-center gap-2 rounded-lg bg-gray-50 p-1">
+                        <div className="flex items-center gap-2 rounded-lg bg-gray-50 p-1 text-gray-800">
                           <Button
                             size="sm"
                             variant="ghost"

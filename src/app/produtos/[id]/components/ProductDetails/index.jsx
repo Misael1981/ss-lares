@@ -8,6 +8,7 @@ import { ArrowLeft, ShoppingCart, Heart, Share2 } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useCart } from "@/contexts/CartContext" // ← 🎯 IMPORTAR O HOOK
 import SheetCart from "@/components/SheetCart"
+import FreteCard from "../FreteCard"
 
 const ProductDetails = ({ product }) => {
   const router = useRouter()
@@ -146,6 +147,9 @@ const ProductDetails = ({ product }) => {
               </div>
             </CardContent>
           </Card>
+
+          {/* FRETE */}
+          <FreteCard />
 
           {/* DESCRIÇÃO */}
           <Card>

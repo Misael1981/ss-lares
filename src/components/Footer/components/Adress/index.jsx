@@ -6,8 +6,6 @@ const Address = ({ companyData }) => {
     ? `${companyData.address.street}, ${companyData.address.number}, ${companyData.address.neighborhood || ""}, ${companyData.address.city}, ${companyData.address.state}, Brasil`
     : "Rua José Ribeiro Coutinho, 499, Bairro Primavera, Congonhal, MG, Brasil"
 
-  console.log("Endereço completo: ", fullAddress)
-
   return (
     <div className="w-[400px] max-w-[100%] space-y-4">
       <h2 className="mb-3 text-lg font-semibold">Onde estamos</h2>
