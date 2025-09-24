@@ -50,20 +50,34 @@ const SidebarMenu = () => {
       <div className="border-b border-solid pb-6">
         <ul className="flex items-center justify-center gap-4">
           <li>
-            <Image
-              src="\image\whatsapp-svgrepo-com.svg"
-              alt="Ícone do Whatsapp"
-              width={32}
-              height={32}
-            />
+            <a
+              href="https://wa.me/5535991972424"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src="/image/whatsapp-svgrepo-com.svg"
+                alt="Ícone do Whatsapp"
+                width={32}
+                height={32}
+                className="cursor-pointer transition-transform hover:scale-110"
+              />
+            </a>
           </li>
           <li>
-            <Image
-              src="/image/instagram-1-svgrepo-com.svg"
-              alt="Ícone do Instagram"
-              width={36}
-              height={36}
-            />
+            <a
+              href="https://www.instagram.com/sslaresmg1/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src="/image/instagram-1-svgrepo-com.svg"
+                alt="Ícone do Instagram"
+                width={36}
+                height={36}
+                className="cursor-pointer transition-transform hover:scale-110"
+              />
+            </a>
           </li>
         </ul>
       </div>
