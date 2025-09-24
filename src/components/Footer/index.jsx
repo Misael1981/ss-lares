@@ -3,6 +3,7 @@ import LogoImage from "../Header/components/LogoImage"
 import { Card, CardContent } from "../ui/card"
 import Address from "./components/Adress"
 import Contact from "./components/contact"
+import InstitutionalLinks from "./components/InstitutionalLinks"
 
 const Footer = async () => {
   const companyData = await prisma.companyInfo.findFirst({
@@ -15,17 +16,13 @@ const Footer = async () => {
     <footer className="mt-4">
       <Card>
         <CardContent className="p-4">
-          <div className="pb flex max-w-[100%] flex-wrap justify-center gap-6">
-            <div className="w-full p-6 lg:w-[400px]">
+          <div className="mb-6 flex max-w-[100%] flex-wrap justify-center gap-6">
+            <div className="w-full p-6 lg:w-[400px] lg:p-0">
               <LogoImage size="h-14" />
-              <h2 className="mb-3 mt-2 text-lg font-semibold">
-                Qualidade que constrói o futuro
-              </h2>
-              <p className="text-sm text-muted-foreground">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione
-                totam consequuntur provident tempora perspiciatis quia deleniti
-                asperiores molestias repellendus laboriosam.
-              </p>
+              <p className="my-2 text-sm">Qualidade que constrói o futuro</p>
+              <div>
+                <InstitutionalLinks />
+              </div>
             </div>
             <Contact companyData={companyData} />
             <Address companyData={companyData} />

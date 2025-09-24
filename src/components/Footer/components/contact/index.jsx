@@ -1,6 +1,9 @@
 "use client"
 
-import { Instagram, Mail, Phone } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Mail, Phone } from "lucide-react"
+import { FaInstagram } from "react-icons/fa"
+import { toast } from "sonner"
 
 const Contact = ({ companyData }) => {
   // Formata o número de telefone para o formato brasileiro
@@ -16,8 +19,13 @@ const Contact = ({ companyData }) => {
     // junta no formato desejado
     return `(${ddd}) 9${number}`
   }
+
+  const handleCopyPhoneClick = (value) => {
+    navigator.clipboard.writeText(value)
+    toast.success("Número copiado para a área de transferência")
+  }
   return (
-    <div className="max-w-[90%]">
+    <div className="w-full max-w-[400px]">
       <h2 className="mb-4 text-lg font-semibold">Contato</h2>
 
       {companyData?.phones?.length === 0 ? (
@@ -30,39 +38,73 @@ const Contact = ({ companyData }) => {
         <div className="space-y-3">
           {/* 📱 Telefones */}
           {companyData?.phones?.map((phone, index) => (
-            <div key={index} className="flex items-center gap-2">
-              <Phone className="h-4 w-4 text-green-600" />
-              <div className="text-sm">
-                <span className="font-medium text-green-600">
-                  {phone.label}
-                </span>
-                {phone.contactName && (
-                  <span className="text-muted-foreground">
-                    {" - "}
-                    {phone.contactName}
+            <div key={index} className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Phone className="h-4 w-4 text-green-600" />
+                <div className="text-sm">
+                  <span className="font-medium text-green-600">
+                    {phone.label}
                   </span>
-                )}
-                <div className="text-muted-foreground">
-                  {formatPhoneBR(phone.number)}
+                  {phone.contactName && (
+                    <span className="text-muted-foreground">
+                      {" - "}
+                      {phone.contactName}
+                    </span>
+                  )}
+                  <div className="text-muted-foreground">
+                    {formatPhoneBR(phone.number)}
+                  </div>
                 </div>
               </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() =>
+                  handleCopyPhoneClick(formatPhoneBR(phone.number))
+                }
+              >
+                Copiar
+              </Button>
             </div>
           ))}
 
           {/* 📧 Email */}
           {companyData?.email && (
-            <div className="flex items-center gap-2">
-              <Mail className="h-4 w-4 text-blue-600" />
-              <span className="text-sm text-muted-foreground">
-                {companyData.email}
-              </span>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Mail className="h-4 w-4 text-blue-600" />
+                <span className="text-sm text-muted-foreground">
+                  {companyData.email}
+                </span>
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => handleCopyPhoneClick(companyData.email)}
+              >
+                Copiar
+              </Button>
             </div>
           )}
 
-          <a href="#" className="flex gap-2 text-sm text-muted-foreground">
-            <Instagram className="h-4 w-4 text-pink-600" />
-            Nos siga no Instagram
-          </a>
+          <div className="flex items-center justify-between">
+            <a
+              href="https://www.instagram.com/sslaresmg1/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex gap-2 text-sm text-muted-foreground"
+            >
+              <FaInstagram className="h-4 w-4 text-pink-600" />
+              Nos siga no Instagram
+            </a>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => handleCopyPhoneClick("@sslares")}
+            >
+              Copiar
+            </Button>
+          </div>
         </div>
       )}
     </div>
