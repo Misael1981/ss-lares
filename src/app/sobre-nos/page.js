@@ -63,24 +63,17 @@ const About = () => {
         <div className="flex flex-wrap justify-center gap-4">
           <MissionCard
             title="Missão"
-            description="Nossa missão é a ser uma empresa de maior credibilidade em nosso
-                ramo, para que possamos atender às expectativas dos nossos
-                clientes, satisfazendo suas necessidades. Ser reconhecida como
-                uma empresa sólida e confiável."
+            description="Nossa missão é fazer a comercialização de produtos adequando às necessidades dos clientes, estabelecendo parcerias que promovam um crescimento contínuo e rentável."
             imageUrl="/image/mission.svg"
           />
           <MissionCard
             title="Visão"
-            description="Para que possamos atender às expectativas dos nossos clientes,
-                satisfazendo suas necessidades. Ser reconhecida como uma empresa
-                sólida e confiável."
+            description="Ser um dos melhores fabricantes em peças plásticas. Que possamos atender às expectativas de nossos clientes. Ser reconhecida como uma empresa sólida e confiável."
             imageUrl="/image/vision.svg"
           />
           <MissionCard
             title="Valores"
-            description="Respeitar normas da empresa e regras e leis dos mercados;
-                Aprimorar a qualidade dos produtos, para que tenhamos uma
-                melhoria contínua, e possamos superar nossos resultados."
+            description="Atuar de maneira ética com integridade. Respeitas regras e leis dos mercados. Aprimorar a qualidade dos produtos para uma melhoria contínua e superarmos resultados."
             imageUrl="/image/values.svg"
           />
           <MissionCard
