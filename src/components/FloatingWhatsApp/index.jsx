@@ -197,7 +197,7 @@ const WhatsAppButton = styled.button`
 const LoadingButton = styled(WhatsAppButton)`
   background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
   animation: ${pulse} 1.5s infinite;
-  
+
   &:hover {
     transform: none;
     box-shadow: 0 4px 20px rgba(107, 114, 128, 0.3);
@@ -213,13 +213,13 @@ const FloatingWhatsApp = () => {
   useEffect(() => {
     const fetchCompanyData = async () => {
       try {
-        const response = await fetch('/api/company')
+        const response = await fetch("/api/company")
         if (response.ok) {
           const data = await response.json()
           setCompanyData(data)
         }
       } catch (error) {
-        console.error('Erro ao buscar dados da empresa:', error)
+        console.error("Erro ao buscar dados da empresa:", error)
       } finally {
         setLoading(false)
       }
@@ -229,9 +229,9 @@ const FloatingWhatsApp = () => {
   }, [])
 
   // 📱 Usar dados dinâmicos ou fallback
-  const adminPhone = companyData?.phones?.find(p => p.label === "Admin")
-  const phoneNumber = adminPhone?.number?.replace('+', '') || "553591972424"
-  const agentName = adminPhone?.contactName || "Tayliner"
+  const adminPhone = companyData?.phones?.find((p) => p.label === "Vendas")
+  const phoneNumber = adminPhone?.number?.replace("+", "") || "553591528076"
+  const agentName = adminPhone?.contactName || "Ivan"
   const companyName = companyData?.name || "SSL Ares"
 
   const handleWhatsAppClick = () => {
@@ -271,7 +271,8 @@ const FloatingWhatsApp = () => {
             </CloseButton>
           </ChatHeader>
           <ChatMessage>
-            Olá! 👋 Sou {agentName}, especialista em produtos e soluções da {companyName}. Como posso te ajudar hoje?
+            Olá! 👋 Sou {agentName}, especialista em produtos e soluções da{" "}
+            {companyName}. Como posso te ajudar hoje?
           </ChatMessage>
           <ChatButton onClick={handleWhatsAppClick}>
             <FaWhatsapp />

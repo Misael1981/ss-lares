@@ -335,8 +335,16 @@ async function seedDataBase() {
     }
 
     //  SEED DA EMPRESA
-    await prisma.companyInfo.create({
-      data: {
+    await prisma.companyInfo.upsert({
+      where: { id: 1 }, // ✅ Mudar para ID
+      update: {
+        name: "SS Lares",
+        email: "sslaresmg@gmail.com",
+        social: {
+          instagram: "https://www.instagram.com/sslaresmg1/",
+        },
+      },
+      create: {
         name: "SS Lares",
         email: "sslaresmg@gmail.com",
         social: {
