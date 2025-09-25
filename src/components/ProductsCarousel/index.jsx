@@ -3,6 +3,7 @@ import Subtitle from "../SubTitle"
 import ProductsCarouselClient from "../ProductsCarouselClient"
 import TagsQuickSearch from "../TagsQuickSearch"
 import Search from "../Search"
+import SearchProducts from "../SearchProducts"
 
 const ProductsCarousel = async () => {
   try {
@@ -27,18 +28,17 @@ const ProductsCarousel = async () => {
         </section>
       )
     }
-    
+
     return (
       <section className="boxed">
         <Subtitle>Produtos</Subtitle>
-        <TagsQuickSearch />
-        <Search />
+        <SearchProducts />
         <ProductsCarouselClient products={products} />
       </section>
     )
   } catch (error) {
     console.error("Erro ao carregar produtos:", error)
-    
+
     // Fallback melhorado
     return (
       <div className="p-8 text-center">

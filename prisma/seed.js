@@ -84,6 +84,7 @@ async function seedDataBase() {
         slug: "cunha",
         description:
           "A Cunha Niveladora com o auxílio do Espaçador Nivelador SSLARES garante o nivelamento correto dos pisos e mantém o espaçamento conforme a medida do espaçador. Com as duas funções simultâneas agiliza o processo de assentamento dos pisos, reduzindo em até 50% o tempo de colocação. A cunha Niveladora SSLARES é reutilizável.",
+        type: "cunhas",
         quantity: "50 peças",
         height: "20mm",
         width: "23mm",
@@ -104,6 +105,7 @@ async function seedDataBase() {
         slug: "cunha-slim",
         description:
           "A Cunha Niveladora Slim com o auxílio do Espaçador Nivelador SSLARES garante o nivelamento correto dos pisos e mantém o espaçamento conforme a medida do espaçador. Com as duas funções simultâneas agiliza o processo de assentamento dos pisos, reduzindo em até 50% o tempo de colocação. A cunha Niveladora SSLARES é reutilizável.",
+        type: "cunhas",
         quantity: "50 peças",
         height: "10mm",
         width: "14mm",
@@ -123,6 +125,7 @@ async function seedDataBase() {
         slug: "desempenadeira-espuma",
         description:
           "A Desempenadeira com Espuma é utilizada para o nivelamento de massas, argamassas e monocapas. Ideal para acabamento em massa fina e reboco.",
+        type: "desempenadeiras",
         price: 45.0,
         imageUrl: [
           "https://res.cloudinary.com/dsxpenevq/image/upload/v1757279795/desempenadeira-espuma_shs07a.png",
@@ -140,7 +143,7 @@ async function seedDataBase() {
         slug: "desempenadeira-lisa",
         description:
           "Indicada para a preparação, nivelamento e acabamento de superfícies, podendo-se utilizar variados tipos de massas, aplicação e desempeno de massa fina.",
-
+        type: "desempenadeiras",
         price: 20.0,
         imageUrl: [
           "https://res.cloudinary.com/dsxpenevq/image/upload/v1757279797/desempenadeira-lisa_ta4v4v.png",
@@ -157,7 +160,7 @@ async function seedDataBase() {
         slug: "desempenadeira-corrugada",
         description:
           "Indicada para preparar superfícies diversas, como planos acantonados, gesso de alvenaria e placas de forro. Por ter uma base corrugada, seu principal diferencial é a facilidade de remover partículas estranhas da massa.",
-
+        type: "desempenadeiras",
         price: 20.0,
         imageUrl: [
           "https://res.cloudinary.com/dsxpenevq/image/upload/v1757279795/desempenadeira-corrugada_xayvma.png",
@@ -175,7 +178,7 @@ async function seedDataBase() {
         slug: "espacador-slim-padrao",
         description:
           "O Espaçador Nivelador SSLARES garante espaçamento e auxilia a Cunha Niveladora Slim a nivelar os pisos corretamente. Com as duas funções simultâneas agiliza o processo de assentamento dos pisos, reduzindo em até 50% o tempo de colocação. Medidas disponíveis 3 mm, 2 mm, 1,5 mm e 1 mm. Trabalhamos na versão PADRÃO (material reciclado cor cinza) e PREMIUM (material virgem cristal).",
-
+        type: "espaçadores",
         price: 20.0,
         imageUrl: [
           "https://res.cloudinary.com/dsxpenevq/image/upload/v1757279797/espacador-slim-padrao_gmvoav.png",
@@ -194,7 +197,7 @@ async function seedDataBase() {
         slug: "espacador-slim-premium",
         description:
           "O Espaçador Nivelador SSLARES garante espaçamento e auxilia a Cunha Niveladora Slim a nivelar os pisos corretamente. Com as duas funções simultâneas agiliza o processo de assentamento dos pisos, reduzindo em até 50% o tempo de colocação. Medidas disponíveis 3 mm, 2 mm, 1,5 mm e 1 mm. Trabalhamos na versão PADRÃO (material reciclado cor cinza) e PREMIUM (material virgem cristal).",
-
+        type: "espaçadores",
         price: 20.0,
         imageUrl: [
           "https://res.cloudinary.com/dsxpenevq/image/upload/v1757279798/espacador-slim-premium_qx681i.png",
@@ -213,7 +216,7 @@ async function seedDataBase() {
         slug: "espacador-smart-premium",
         description:
           "O Espaçador Nivelador SSLARES garante espaçamento e auxilia a Cunha Niveladora Slim a nivelar os pisos corretamente. Com as duas funções simultâneas agiliza o processo de assentamento dos pisos, reduzindo em até 50% o tempo de colocação. Medidas disponíveis 3 mm, 2 mm, 1,5 mm e 1 mm. Trabalhamos na versão PADRÃO (material reciclado cor cinza) e PREMIUM (material virgem cristal).",
-
+        type: "espaçadores",
         price: 20.0,
         imageUrl: [
           "https://res.cloudinary.com/dsxpenevq/image/upload/v1757279798/espacador-slim-premium_qx681i.png",
@@ -232,7 +235,7 @@ async function seedDataBase() {
         slug: "bloco-espuma",
         description:
           "Os versáteis blocos de espuma SsLares são ideais para uma variedade de aplicações, desde o acabamento de reboco e a limpeza de revestimentos cerâmicos e vidros até a lavagem de automóveis e a limpeza em geral. Sua composição especial permite uma eficaz remoção de sujeira e manchas, tornando-os indispensáveis para diversas tarefas domésticas e comerciais. Experimente a praticidade e eficiência dos blocos de espuma para facilitar suas atividades diárias!",
-
+        type: "outros",
         price: 20.0,
         imageUrl: [
           "https://res.cloudinary.com/dsxpenevq/image/upload/v1757279794/bloco-espuma_j8fu2u.png",
@@ -250,7 +253,7 @@ async function seedDataBase() {
         slug: "ralo-linear",
         description:
           "O Ralo Linear Oculto 6x50cm serve para Bordas de Piscinas,Quintal, Áreas Externas, Banheiros, Saunas, Decks e muito mais. Usa o próprio piso ou porcelanato como acabamento, deixando o ambiente discreto, harmônico e sofisticado.",
-
+        type: "ralos",
         price: 20.0,
         imageUrl: [
           "https://res.cloudinary.com/dsxpenevq/image/upload/v1757279801/ralo-linear_nq44zn.png",
@@ -269,7 +272,7 @@ async function seedDataBase() {
         slug: "ralo-invisivel",
         description:
           "O ralo Invisivel é a opção ideal para quem busca aliar funcionalidade e estética. Além de proporcionar mais segurança e favorecer a vazão da água, seu design discreto e moderno contribui para uma melhor estética do ambiente. Sua facilidade de instalação e as opções de tamanhos e cores disponíveis tornam o ralo oculto uma escolha versátil e prática. Com a capacidade de facilitar a limpeza doméstica, este produto se destaca como uma solução eficiente para banheiros, cozinhas e áreas de serviço.",
-
+        type: "ralos",
         price: 20.0,
         imageUrl: [
           "https://res.cloudinary.com/dsxpenevq/image/upload/v1757279801/ralo-invisivel-03_krvcdl.png",
@@ -288,7 +291,7 @@ async function seedDataBase() {
         slug: "plafon",
         description:
           "O Plafon com soquete de Porcelana E27 Branco é um dispositivo de iluminação de teto projetado para oferecer uma solução simples e funcional para a iluminação de ambientes internos. Ele é feito de PVC de alta qualidade, um material durável e resistente, na cor branca, que se adapta facilmente a diferentes estilos de decoração.Uma das características principais desse plafon é o seu soquete de porcelana E27, que é uma opção segura e confiável para a instalação de lâmpadas incandescentes, fluorescentes compactas ou LED com essa base. A porcelana é um material resistente ao calor e oferece maior segurança em comparação com soquetes de plástico ou metal, pois é menos propenso a derreter ou superaquecer.",
-
+        type: "outros",
         price: 20.0,
         imageUrl: [
           "https://res.cloudinary.com/dsxpenevq/image/upload/v1757279799/plafon_r63pdf.png",
@@ -337,7 +340,7 @@ async function seedDataBase() {
         name: "SS Lares",
         email: "sslaresmg@gmail.com",
         social: {
-          instagram: "https://www.instagram.com/sslaresmg1/", // 👈 Removi as aspas extras
+          instagram: "https://www.instagram.com/sslaresmg1/",
         },
         address: {
           create: {
@@ -352,8 +355,8 @@ async function seedDataBase() {
         phones: {
           create: [
             {
-              label: "Admin",
-              contactName: "Tayliner",
+              label: "FAQ/Financeiro",
+              contactName: "Tailyner",
               number: "+553591972424",
             },
             {
