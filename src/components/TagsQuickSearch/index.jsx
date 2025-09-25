@@ -1,34 +1,36 @@
+"use client"
+import Link from "next/link"
+import { useSearchParams } from "next/navigation"
 import { Button } from "../ui/button"
 
-const tags = [
-  {
-    id: 1,
-    name: "Espaçadores",
-  },
-  {
-    id: 2,
-    name: "Desempenadeiras",
-  },
-  {
-    id: 3,
-    name: "Ralos",
-  },
-  {
-    id: 4,
-    name: "Outros",
-  },
-]
+const TagsQuickSearch = ({ productsType = [] }) => {
+  const searchParams = useSearchParams()
+  const activeType = searchParams.get('type')
 
-const TagsQuickSearch = () => {
+  const availableTypes = productsType.map((type, index) => ({
+    id: index + 1,
+    name: type.charAt(0).toUpperCase() + type.slice(1),
+    value: type,
+  }))
+
+  // ✅ Adicionar botão "Todos" para limpar filtro
+  const allTypes = [
+    { id: 0, name: "Todos", value: null },
+    ...availableTypes
+  ]
+
   return (
     <div className="my-4 flex items-center gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden">
-      {tags.map((tag) => (
+      {allTypes.map((tag) => (
         <Button
           key={tag.id}
-          variant="secondary"
+          variant={activeType === tag.value ? "default" : "secondary"}
           className="rounded-s-lg px-3 py-1"
+          asChild
         >
-          {tag.name}
+          <Link href={tag.value ? `/produtos?type=${tag.value}` : '/produtos'}>
+            {tag.name}
+          </Link>
         </Button>
       ))}
     </div>
