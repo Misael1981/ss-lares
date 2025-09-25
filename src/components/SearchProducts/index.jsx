@@ -1,3 +1,4 @@
+import { Suspense } from "react"
 import Search from "../Search"
 import TagsQuickSearch from "../TagsQuickSearch"
 
@@ -7,8 +8,10 @@ const SearchProducts = ({ products }) => {
   console.log("productNames: ", productNames)
   return (
     <>
-      <TagsQuickSearch productsType={productTypes} />
-      <Search />
+      <Suspense fallback={<div>Carregando busca...</div>}>
+        <TagsQuickSearch productsType={productTypes} />
+        <Search />
+      </Suspense>
     </>
   )
 }
