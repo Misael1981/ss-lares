@@ -5,23 +5,20 @@ import SearchProducts from "@/components/SearchProducts"
 import Footer from "@/components/Footer"
 
 const Produtos = async ({ searchParams }) => {
-  // ✅ Pegar filtros da URL
   const selectedType = searchParams?.type
   const searchTerm = searchParams?.search
 
   try {
-    // ✅ Construir filtro dinâmico
     const whereCondition = {
       isAvailable: true,
       ...(selectedType && { type: selectedType }),
-      // ✅ Adicionar busca por texto
       ...(searchTerm && {
         OR: [
-          { name: { contains: searchTerm, mode: 'insensitive' } },
-          { description: { contains: searchTerm, mode: 'insensitive' } },
-          { tags: { hasSome: [searchTerm] } }
-        ]
-      })
+          { name: { contains: searchTerm, mode: "insensitive" } },
+          { description: { contains: searchTerm, mode: "insensitive" } },
+          { tags: { hasSome: [searchTerm] } },
+        ],
+      }),
     }
 
     const products = await prismaWithRetry(() =>
@@ -33,15 +30,13 @@ const Produtos = async ({ searchParams }) => {
       }),
     )
 
-    // ✅ Buscar TODOS os produtos para passar tipos para SearchProducts
     const allProducts = await prismaWithRetry(() =>
       prisma.product.findMany({
         where: { isAvailable: true },
-        select: { type: true }
+        select: { type: true },
       }),
     )
 
-    // ✅ Construir título dinâmico
     let pageTitle = "Produtos"
     if (selectedType && searchTerm) {
       pageTitle = `Produtos - ${selectedType.charAt(0).toUpperCase() + selectedType.slice(1)} - "${searchTerm}"`
@@ -60,8 +55,7 @@ const Produtos = async ({ searchParams }) => {
             <p className="py-8 text-center text-gray-500">
               {searchTerm || selectedType
                 ? `Nenhum produto encontrado para os filtros aplicados.`
-                : "Nenhum produto encontrado."
-              }
+                : "Nenhum produto encontrado."}
             </p>
           </div>
         </main>
