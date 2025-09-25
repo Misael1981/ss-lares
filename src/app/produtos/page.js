@@ -5,14 +5,23 @@ import SearchProducts from "@/components/SearchProducts"
 import Footer from "@/components/Footer"
 
 const Produtos = async ({ searchParams }) => {
-  // ✅ Pegar o filtro de tipo da URL
+  // ✅ Pegar filtros da URL
   const selectedType = searchParams?.type
+  const searchTerm = searchParams?.search
 
   try {
     // ✅ Construir filtro dinâmico
     const whereCondition = {
       isAvailable: true,
-      ...(selectedType && { type: selectedType }) // Só adiciona filtro se tipo foi selecionado
+      ...(selectedType && { type: selectedType }),
+      // ✅ Adicionar busca por texto
+      ...(searchTerm && {
+        OR: [
+          { name: { contains: searchTerm, mode: 'insensitive' } },
+          { description: { contains: searchTerm, mode: 'insensitive' } },
+          { tags: { hasSome: [searchTerm] } }
+        ]
+      })
     }
 
     const products = await prismaWithRetry(() =>
@@ -28,24 +37,29 @@ const Produtos = async ({ searchParams }) => {
     const allProducts = await prismaWithRetry(() =>
       prisma.product.findMany({
         where: { isAvailable: true },
-        select: { type: true } // Só precisamos do tipo
+        select: { type: true }
       }),
     )
+
+    // ✅ Construir título dinâmico
+    let pageTitle = "Produtos"
+    if (selectedType && searchTerm) {
+      pageTitle = `Produtos - ${selectedType.charAt(0).toUpperCase() + selectedType.slice(1)} - "${searchTerm}"`
+    } else if (selectedType) {
+      pageTitle = `Produtos - ${selectedType.charAt(0).toUpperCase() + selectedType.slice(1)}`
+    } else if (searchTerm) {
+      pageTitle = `Produtos - "${searchTerm}"`
+    }
 
     if (!products || products.length === 0) {
       return (
         <main className="h-[calc(100vh-170px)]">
           <div className="boxed">
-            <Subtitle>
-              {selectedType 
-                ? `Produtos - ${selectedType.charAt(0).toUpperCase() + selectedType.slice(1)}` 
-                : "Produtos"
-              }
-            </Subtitle>
+            <Subtitle>{pageTitle}</Subtitle>
             <SearchProducts products={allProducts} />
             <p className="py-8 text-center text-gray-500">
-              {selectedType 
-                ? `Nenhum produto encontrado para "${selectedType}".`
+              {searchTerm || selectedType
+                ? `Nenhum produto encontrado para os filtros aplicados.`
                 : "Nenhum produto encontrado."
               }
             </p>
@@ -58,12 +72,7 @@ const Produtos = async ({ searchParams }) => {
       <>
         <main className="">
           <div className="boxed">
-            <Subtitle>
-              {selectedType 
-                ? `Produtos - ${selectedType.charAt(0).toUpperCase() + selectedType.slice(1)}` 
-                : "Produtos"
-              }
-            </Subtitle>
+            <Subtitle>{pageTitle}</Subtitle>
             <SearchProducts products={allProducts} />
             <section className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {products.map((product) => (

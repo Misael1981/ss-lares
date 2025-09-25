@@ -3,7 +3,8 @@ import TagsQuickSearch from "../TagsQuickSearch"
 
 const SearchProducts = ({ products }) => {
   const productTypes = [...new Set(products.map((product) => product.type))]
-  console.log("tipos de products na página SearchProducts: ", productTypes)
+  const productNames = [...new Set(products.map((product) => product.name))]
+  console.log("productNames: ", productNames)
   return (
     <>
       <TagsQuickSearch productsType={productTypes} />
