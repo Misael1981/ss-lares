@@ -71,14 +71,47 @@ model Product {
   type          String         @default("outros") 
   description   String?
   quantity      String?
-  height        String?
-  width         String?
-  length        String?
-  price         Float
+  
+  //  Cores disponíveis
+  color         String[]       // Array de cores ["branco", "cinza", "preto"]
+  
+  // Preços e custos
+  price         Float          // Custo Final Com Impostos (preço de venda)
+  salePrice     Float?         // Preço promocional
+  
+  // NOVOS CAMPOS DA PLANILHA
+  supplierCode     String?     // CÓD. FORNECEDOR
+  brand           String?      // Marca
+  costWithoutTaxes Float?      // Custo Sem Impostos
+  ipi             Float?       // IPI (%)
+  st              Float?       // ST
+  icms            Float?       // ICMS (%)
+  ncm             String?      // NCM
+  quantityPerBox  Int?         // QUANTIDADE POR CAIXA
+  barcodeUnit     String?      // Código Barras Unidade
+  barcodeBox      String?      // Código Barras Caixa
+  
+  // ✅ NOVO: Informações de embalagem
+  quantityPackages            String?    // Quantidade de pacotes
+  quantityOfUnitsInPackages   String?    // Unidades por pacote
+  
+  // Dimensões do PRODUTO (unidade individual)
+  height        String?        // Altura do produto
+  width         String?        // Largura do produto  
+  length        String?        // Comprimento do produto
+  
+  // Dimensões da CAIXA
+  boxHeight        String?        // Altura Caixa (cm)
+  boxWidth         String?        // Largura Caixa (cm) 
+  boxLength        String?        // Comprimento Caixa (cm)
+
+  // Pesos
+  weight        String?        // ✅ MUDANÇA: String para aceitar "180", "320"
+  boxWeight     String?        // ✅ MUDANÇA: String para aceitar "27.780 kg"
+  
+  // Campos existentes
   imageUrl      String[]
   tags          String[]
-  salePrice     Float?
-  weight        Float?
   isAvailable   Boolean        @default(true)
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
