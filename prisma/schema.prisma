@@ -65,57 +65,54 @@ model VerificationToken {
 }
 
 model Product {
-  id            String         @id @default(uuid())
-  name          String
-  slug          String         @unique
-  type          String         @default("outros") 
-  description   String?
-  quantity      String?
-  
-  //  Cores disponíveis
-  color         String[]       // Array de cores ["branco", "cinza", "preto"]
-  
-  // Preços e custos
-  price         Float          // Custo Final Com Impostos (preço de venda)
-  salePrice     Float?         // Preço promocional
-  
-  // NOVOS CAMPOS DA PLANILHA
-  supplierCode     String?     // CÓD. FORNECEDOR
-  brand           String?      // Marca
-  costWithoutTaxes Float?      // Custo Sem Impostos
-  ipi             Float?       // IPI (%)
-  st              Float?       // ST
-  icms            Float?       // ICMS (%)
-  ncm             String?      // NCM
-  quantityPerBox  Int?         // QUANTIDADE POR CAIXA
-  barcodeUnit     String?      // Código Barras Unidade
-  barcodeBox      String?      // Código Barras Caixa
-  
-  // ✅ NOVO: Informações de embalagem
-  quantityPackages            String?    // Quantidade de pacotes
-  quantityOfUnitsInPackages   String?    // Unidades por pacote
-  
-  // Dimensões do PRODUTO (unidade individual)
-  height        String?        // Altura do produto
-  width         String?        // Largura do produto  
-  length        String?        // Comprimento do produto
-  
-  // Dimensões da CAIXA
-  boxHeight        String?        // Altura Caixa (cm)
-  boxWidth         String?        // Largura Caixa (cm) 
-  boxLength        String?        // Comprimento Caixa (cm)
+  id          String   @id @default(uuid())
+  name        String
+  slug        String   @unique
+  description String?
+  type        String   @default("outros")
+  price       Float
+  salePrice   Float?
+  brand       String?
+  tags        String[]
+  colors      String[]
+  imageUrl    String[]
 
-  // Pesos
-  weight        String?        // ✅ MUDANÇA: String para aceitar "180", "320"
-  boxWeight     String?        // ✅ MUDANÇA: String para aceitar "27.780 kg"
-  
-  // Campos existentes
-  imageUrl      String[]
-  tags          String[]
-  isAvailable   Boolean        @default(true)
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
+  // Dimensões do produto individual
+  height Float? // altura do produto em cm
+  width  Float? // largura do produto em cm  
+  length Float? // comprimento do produto em cm
+  weight Float? // peso do produto individual em kg
+
+  // relações
+  packaging     PackagingVariant[]
   orderProducts OrderProduct[]
+
+  isAvailable Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model PackagingVariant {
+  id        String  @id @default(uuid())
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+
+  quantityPerPackage Int? // Ex.: 50, 100, 200
+  packagePerBox  Int?
+  unitLabel      String? // "peças", "caixas"
+  barcodeBox     String?
+  boxHeight      Float? // cm
+  boxWidth       Float?
+  boxLength      Float?
+  boxWeight      Float? // kg
+
+  // preços e impostos que podem mudar conforme a caixa
+  price            Float
+  salePrice        Float?
+  costWithoutTaxes Float?
+  ipi              Float?
+  st               Float?
+  icms             Float?
 }
 
 model Order {

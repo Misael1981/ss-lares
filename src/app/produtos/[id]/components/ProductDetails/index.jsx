@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation"
 import { useCart } from "@/contexts/CartContext" // ← 🎯 IMPORTAR O HOOK
 import SheetCart from "@/components/SheetCart"
 import FreteCard from "../FreteCard"
+import ProductPackaging from "../ProductPackaging"
 
 const ProductDetails = ({ product }) => {
   const router = useRouter()
@@ -73,6 +74,8 @@ const ProductDetails = ({ product }) => {
               ))}
             </div>
           )}
+          {/* PACOTE */}
+          <ProductPackaging product={product} />
         </div>
 
         {/* 📝 INFORMAÇÕES DO PRODUTO */}

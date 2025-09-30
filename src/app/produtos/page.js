@@ -24,6 +24,9 @@ const Produtos = async ({ searchParams }) => {
     const products = await prismaWithRetry(() =>
       prisma.product.findMany({
         where: whereCondition,
+        include: {
+          packaging: true,
+        },
         orderBy: {
           createdAt: "desc",
         },

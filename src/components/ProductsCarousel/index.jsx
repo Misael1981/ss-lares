@@ -10,6 +10,9 @@ const ProductsCarousel = async () => {
         where: {
           isAvailable: true,
         },
+        include: {
+          packaging: true,
+        },
         orderBy: {
           createdAt: "desc",
         },

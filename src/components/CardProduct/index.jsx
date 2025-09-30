@@ -30,13 +30,13 @@ const CardProduct = ({ products }) => {
             <div className="mt-3">
               <p className="text-center text-lg font-bold text-green-600">
                 R${" "}
-                {product.salePrice
-                  ? product.salePrice.toFixed(2)
-                  : product.price.toFixed(2)}
+                {product.packaging?.[0]?.salePrice
+                  ? product.packaging[0].salePrice.toFixed(2)
+                  : product.packaging?.[0]?.price?.toFixed(2) || "0.00"}
               </p>
-              {product.salePrice && (
+              {product.packaging?.[0]?.salePrice && (
                 <p className="text-center text-sm text-gray-500 line-through">
-                  R$ {product.price.toFixed(2)}
+                  R$ {product.packaging[0].price.toFixed(2)}
                 </p>
               )}
               <Button variant="secondary" className="mt-3 w-full text-xs pointer-events-none">

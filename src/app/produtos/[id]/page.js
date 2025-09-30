@@ -11,6 +11,9 @@ const Produto = async ({ params }) => {
         where: {
           id: id,
         },
+        include: {
+          packaging: true, // ← Incluir os dados de packaging
+        },
       }),
     )
 
