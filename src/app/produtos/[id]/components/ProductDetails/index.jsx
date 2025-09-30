@@ -15,7 +15,7 @@ const ProductDetails = ({ product }) => {
   const router = useRouter()
   const [selectedImage, setSelectedImage] = useState(0)
   const [quantity, setQuantity] = useState(1)
-  
+
   // ✅ ESTADO COMPARTILHADO: Controla qual embalagem está selecionada
   const [selectedPackaging, setSelectedPackaging] = useState(null)
 
@@ -46,7 +46,7 @@ const ProductDetails = ({ product }) => {
       </Button>
 
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-        {/* IMAGEM PRINCIPAL E OPÇÕES DE EMBALAGEM */}
+        {/* IMAGEM PRINCIPAL E OPÇÕES IMAGENS */}
         <div className="space-y-4">
           <Card className="overflow-hidden">
             <CardContent className="p-0">
@@ -80,9 +80,9 @@ const ProductDetails = ({ product }) => {
               ))}
             </div>
           )}
-          
+
           {/* ✅ PACOTES COM ESTADO COMPARTILHADO */}
-          <ProductPackaging 
+          <ProductPackaging
             product={product}
             selectedPackaging={selectedPackaging}
             onPackagingSelect={setSelectedPackaging}
@@ -97,7 +97,7 @@ const ProductDetails = ({ product }) => {
             selectedPackaging={selectedPackaging}
           />
 
-          {/* AÇÕES */}
+          {/* AÇÕES - ADICIONAR AO CARRINHO */}
           <Card>
             <CardContent className="p-6">
               <div className="space-y-4">
@@ -148,7 +148,7 @@ const ProductDetails = ({ product }) => {
             </CardContent>
           </Card>
 
-          <FreteCard />
+          <FreteCard produto={product} selectedPackaging={selectedPackaging} />
 
           <Card>
             <CardContent className="p-6">
