@@ -1,35 +1,40 @@
 "use client"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
 import { ArrowLeft, ShoppingCart, Heart, Share2 } from "lucide-react"
 import { useRouter } from "next/navigation"
-import { useCart } from "@/contexts/CartContext" // ← 🎯 IMPORTAR O HOOK
+import { useCart } from "@/contexts/CartContext"
 import SheetCart from "@/components/SheetCart"
 import FreteCard from "../FreteCard"
 import ProductPackaging from "../ProductPackaging"
+import HeaderProduct from "../HeaderProduct"
 
 const ProductDetails = ({ product }) => {
   const router = useRouter()
   const [selectedImage, setSelectedImage] = useState(0)
   const [quantity, setQuantity] = useState(1)
+  
+  // ✅ ESTADO COMPARTILHADO: Controla qual embalagem está selecionada
+  const [selectedPackaging, setSelectedPackaging] = useState(null)
 
-  // 🛒 USAR O HOOK DO CARRINHO
   const { addItem, openCart } = useCart()
 
-  // 🖼️ GARANTIR QUE IMAGES É ARRAY
+  // ✅ Definir primeira embalagem como padrão quando carregar
+  useEffect(() => {
+    if (product?.packaging?.[0]) {
+      setSelectedPackaging(product.packaging[0])
+    }
+  }, [product])
+
   const images = Array.isArray(product.imageUrl)
     ? product.imageUrl
     : [product.imageUrl]
 
   const handleAddToCart = () => {
-    // 🛒 ADICIONAR AO CARRINHO E ABRIR
     addItem(product)
-    openCart() // 🎯 Abre o carrinho automaticamente
-
-    // 🎉 Feedback visual (opcional)
+    openCart()
     console.log("✅ Produto adicionado:", product.name)
   }
 
@@ -41,6 +46,7 @@ const ProductDetails = ({ product }) => {
       </Button>
 
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+        {/* IMAGEM PRINCIPAL E OPÇÕES DE EMBALAGEM */}
         <div className="space-y-4">
           <Card className="overflow-hidden">
             <CardContent className="p-0">
@@ -74,31 +80,22 @@ const ProductDetails = ({ product }) => {
               ))}
             </div>
           )}
-          {/* PACOTE */}
-          <ProductPackaging product={product} />
+          
+          {/* ✅ PACOTES COM ESTADO COMPARTILHADO */}
+          <ProductPackaging 
+            product={product}
+            selectedPackaging={selectedPackaging}
+            onPackagingSelect={setSelectedPackaging}
+          />
         </div>
 
         {/* 📝 INFORMAÇÕES DO PRODUTO */}
         <div className="space-y-6">
-          {/* CABEÇALHO */}
-          <div>
-            <h1 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white">
-              {product.name}
-            </h1>
-            <div className="mb-4 flex items-center gap-2">
-              <Badge
-                variant={product.isAvailable ? "default" : "secondary"}
-                className={
-                  product.isAvailable ? "bg-green-500 hover:bg-green-600" : ""
-                }
-              >
-                {product.isAvailable ? "Disponível" : "Indisponível"}
-              </Badge>
-            </div>
-            <p className="mb-4 text-4xl font-bold text-orange-500">
-              R$ {product.price?.toFixed(2)}
-            </p>
-          </div>
+          {/* ✅ CABEÇALHO COM EMBALAGEM SELECIONADA */}
+          <HeaderProduct
+            product={product}
+            selectedPackaging={selectedPackaging}
+          />
 
           {/* AÇÕES */}
           <Card>
@@ -151,10 +148,8 @@ const ProductDetails = ({ product }) => {
             </CardContent>
           </Card>
 
-          {/* FRETE */}
           <FreteCard />
 
-          {/* DESCRIÇÃO */}
           <Card>
             <CardContent className="p-6">
               <h3 className="mb-3 text-lg font-semibold">Descrição</h3>
@@ -164,7 +159,6 @@ const ProductDetails = ({ product }) => {
             </CardContent>
           </Card>
 
-          {/* ESPECIFICAÇÕES */}
           {product.specifications && (
             <Card>
               <CardContent className="p-6">

@@ -2,19 +2,15 @@
 
 import { useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Package, Check, Ruler, Weight } from "lucide-react"
 
-const ProductPackaging = ({ product, onPackagingSelect }) => {
-  const [selectedPackaging, setSelectedPackaging] = useState(null)
-
-  console.log("Detalhes de caixas ", product.packaging)
+const ProductPackaging = ({ product, selectedPackaging, onPackagingSelect }) => {
+  // ✅ Não precisa mais de useState interno!
+  // O estado vem do componente pai
 
   const handleSelect = (packaging) => {
-    setSelectedPackaging(packaging)
-    onPackagingSelect?.(packaging) // Passa a seleção para o componente pai
+    onPackagingSelect(packaging) // ✅ Atualiza o estado do pai
   }
 
   return (
@@ -58,15 +54,19 @@ const ProductPackaging = ({ product, onPackagingSelect }) => {
                   {/* ✨ NOVA SEÇÃO: Dimensões e Peso */}
                   <div className="mb-3 flex flex-wrap items-center gap-3 text-xs text-gray-500">
                     {/* Dimensões */}
-                    {(packaging.boxLength || packaging.boxWidth || packaging.boxHeight) && (
+                    {(packaging.boxLength ||
+                      packaging.boxWidth ||
+                      packaging.boxHeight) && (
                       <div className="flex items-center gap-1">
                         <Ruler className="h-3 w-3" />
                         <span>
-                          {packaging.boxLength || '?'} × {packaging.boxWidth || '?'} × {packaging.boxHeight || '?'} cm
+                          {packaging.boxLength || "?"} ×{" "}
+                          {packaging.boxWidth || "?"} ×{" "}
+                          {packaging.boxHeight || "?"} cm
                         </span>
                       </div>
                     )}
-                    
+
                     {/* Peso */}
                     {packaging.boxWeight && (
                       <div className="flex items-center gap-1">
@@ -74,11 +74,13 @@ const ProductPackaging = ({ product, onPackagingSelect }) => {
                         <span>{packaging.boxWeight} kg</span>
                       </div>
                     )}
-                    
+
                     {/* Código de barras (se tiver) */}
                     {packaging.barcodeBox && (
                       <div className="flex items-center gap-1">
-                        <span className="font-mono text-xs">📊 {packaging.barcodeBox}</span>
+                        <span className="font-mono text-xs">
+                          📊 {packaging.barcodeBox}
+                        </span>
                       </div>
                     )}
                   </div>
