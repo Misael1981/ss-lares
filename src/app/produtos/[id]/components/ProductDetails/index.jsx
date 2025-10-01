@@ -24,10 +24,10 @@ const ProductDetails = ({ product }) => {
 
   // ✅ Definir primeira embalagem como padrão quando carregar
   useEffect(() => {
-    if (product?.packaging?.[0]) {
+    if (product?.packaging?.[0] && !selectedPackaging) {
       setSelectedPackaging(product.packaging[0])
     }
-  }, [product])
+  }, [product?.packaging, selectedPackaging])
 
   const images = Array.isArray(product.imageUrl)
     ? product.imageUrl
