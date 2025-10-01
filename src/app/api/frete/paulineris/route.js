@@ -28,10 +28,12 @@ export async function POST(request) {
     // 🎯 CONFIGURAÇÕES ATUALIZADAS DA PAULINERIS
     const paulinerisConfig = {
       tokenUrl: "https://tracking-apigateway.rte.com.br/token",
-      quotationUrl: "https://quotation-apigateway.rte.com.br/api/v1/gera-cotacao", // ✅ URL correta
-      username: process.env.PAULINERIS_USERNAME,
-      password: process.env.PAULINERIS_PASSWORD,
-      clientId: process.env.PAULINERIS_CLIENT_ID,
+      quotationUrl: "https://quotation-apigateway.rte.com.br/api/v1/gera-cotacao",
+      username: process.env.PAULINERIS_USERNAME, // LARES
+      password: process.env.PAULINERIS_PASSWORD, // 7OEUDK1Y
+      clientId: "8E1D30B7-1184-491E-BD2F-B9007BCC460F", // ✅ Client ID correto
+      cidadeOrigemId: process.env.PAULINERIS_CIDADE_ORIGEM_ID,
+      userCpf: process.env.PAULINERIS_USER_CPF,
     }
 
     if (!paulinerisConfig.username || !paulinerisConfig.password) {
@@ -48,32 +50,32 @@ export async function POST(request) {
 
     // 🎯 PREPARAR DADOS CONFORME DOCUMENTAÇÃO OFICIAL DA PAULINERIS
     const requestData = {
-      OriginZipCode: (process.env.CEP_ORIGEM || "37584000").replace("-", ""), // Remove hífen
-      OriginCityId: process.env.PAULINERIS_CIDADE_ORIGEM_ID || "8997", // ID da cidade de origem
-      DestinationZipCode: cep.replace("-", ""), // Remove hífen do CEP
-      DestinationCityId: "", // Pode ser vazio conforme documentação
-      Weight: produto.peso || 1.0, // Peso em kilos
-      DeclaredValue: produto.preco || 10.50, // Valor da NF-e
-      ReceiverCpfcnp: "12345678910", // CPF/CNPJ do destinatário (genérico)
-      UserCpfCnpj: process.env.PAULINERIS_USER_CPF || "12345678910", // CPF/CNPJ do usuário logado
-      UserName: "SISTEMA ECOMMERCE", // Usuário que fez a emissão
-      PayerType: "1", // Tomador da cotação
-      // 🎯 ARRAY DE PACOTES CONFORME DOCUMENTAÇÃO
+      OriginZipCode: (process.env.CEP_ORIGEM || "37584000").replace("-", ""),
+      OriginCityId: parseInt(process.env.PAULINERIS_CIDADE_ORIGEM_ID || "8997"),
+      DestinationZipCode: cep.replace("-", ""),
+      DestinationCityId: 8997,
+      Weight: parseFloat(produto.peso || 1.0),
+      DeclaredValue: parseFloat(produto.preco || 10.50),
+      CustomerTaxIdRegistration: "43910158000101", // ✅ CNPJ real da SS Lares
+      ReceiverCpfcnp: "43910158000101", // ✅ CNPJ real da SS Lares
+      UserCpfCnpj: process.env.PAULINERIS_USER_CPF || "05459334632", // ✅ CPF do usuário
+      UserName: "SS LARES", // ✅ Nome correto da empresa
+      PayerType: 1,
       Packs: [
         {
-          AmountPackages: 1, // Quantidade de pacotes
-          Weight: produto.peso || 1.0, // Peso do pacote
-          Length: produto.comprimento || 20.0, // Comprimento
-          Height: produto.altura || 10.0, // Altura
-          Width: produto.largura || 15.0 // Largura
+          AmountPackages: 1,
+          Weight: parseFloat(produto.peso || 1.0),
+          Length: parseFloat(produto.comprimento || 20.0),
+          Height: parseFloat(produto.altura || 10.0),
+          Width: parseFloat(produto.largura || 15.0)
         }
       ],
-      Email: "contato@empresa.com", // Email do cliente
-      ContactName: "Cliente", // Nome do contato
-      ContactPhone: "11999999999", // Telefone do contato
-      AmountVolumes: 1, // Quantidade de volumes
-      Address: "Endereço de origem", // Endereço
-      AddressDestination: "Endereço de destino" // Endereço de destino
+      Email: "contato@empresa.com",
+      ContactName: "Cliente",
+      ContactPhoneNumber: "11999999999", // ✅ Nome correto do campo!
+      AmountVolumes: 1,
+      Address: "Endereço de origem",
+      AddressDestination: "Endereço de destino"
     }
 
     console.log("🚚 Enviando para Paulineris (estrutura oficial):", requestData)
@@ -84,7 +86,7 @@ export async function POST(request) {
       headers: {
         accept: "application/json",
         "content-type": "application/*+json",
-        Authorization: token, // Token conforme documentação
+        Authorization: `Bearer ${token}`, // ✅ Adicionar "Bearer"
       },
       body: JSON.stringify(requestData),
     })
@@ -151,9 +153,9 @@ async function getCachedAccessToken(config) {
       body: new URLSearchParams({
         auth_type: "DEV",
         grant_type: "password",
-        username: config.username,
-        password: config.password,
-        client_id: config.clientId || "default",
+        username: config.username, // LARES
+        password: config.password, // 7OEUDK1Y
+        // ❌ Removido client_id do body - não está no exemplo da documentação
       }),
     })
 

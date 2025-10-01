@@ -10,6 +10,7 @@ import SheetCart from "@/components/SheetCart"
 import FreteCard from "../FreteCard"
 import ProductPackaging from "../ProductPackaging"
 import HeaderProduct from "../HeaderProduct"
+import ProductsSpecification from "../ProductsSpecification"
 
 const ProductDetails = ({ product }) => {
   const router = useRouter()
@@ -159,21 +160,7 @@ const ProductDetails = ({ product }) => {
             </CardContent>
           </Card>
 
-          {product.specifications && (
-            <Card>
-              <CardContent className="p-6">
-                <h3 className="mb-3 text-lg font-semibold">Especificações</h3>
-                <div className="space-y-2">
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Categoria:</span>
-                    <span className="font-medium">
-                      {product.category || "Geral"}
-                    </span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )}
+          <ProductsSpecification product={product} />
         </div>
       </div>
     </div>

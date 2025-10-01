@@ -13,7 +13,9 @@ const HeaderProduct = ({ product, selectedPackaging }) => {
 
   return (
     <div className="mb-6">
-      <h1 className="mb-4 text-3xl font-bold text-gray-900">{product.name}</h1>
+      <h1 className="mb-4 text-3xl font-bold text-gray-900 dark:text-white">
+        {product.name}
+      </h1>
       <div className="mb-4 flex items-center gap-2">
         <Badge
           variant={product.isAvailable ? "default" : "secondary"}
