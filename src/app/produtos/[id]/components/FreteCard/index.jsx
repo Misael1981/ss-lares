@@ -1,23 +1,43 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useFrete } from "@/hooks/useFrete"
+import { useCart } from "@/contexts/CartContext"
 import FreteInput from "@/components/FreteInput"
 import FreteOption from "@/components/FreteOption"
 
-export default function FreteCard({ produto, selectedPackaging, onFreteSelect }) {
-  const { 
-    cep, 
-    setCep, 
-    loading, 
-    freteOptions, 
+export default function FreteCard({
+  produto,
+  selectedPackaging,
+  quantity,
+  onFreteSelect,
+}) {
+  const {
+    cep,
+    setCep,
+    loading,
+    freteOptions,
     selectedFrete,
     selectFreteOption,
-    error, 
-    calcularFrete 
-  } = useFrete(produto, selectedPackaging)
+    error,
+    calcularFrete,
+  } = useFrete(produto, selectedPackaging, quantity) // ✅ Passar quantidade
 
-  // 🔄 Notificar componente pai quando frete for selecionado
+  const { setShipping } = useCart()
+
+  // 🔄 Notificar componente pai E atualizar carrinho quando frete for selecionado
   const handleFreteSelect = (option) => {
     selectFreteOption(option)
+
+    // 🛒 Atualizar frete no carrinho COM QUANTIDADE
+    setShipping({
+      method: option.servico || "PAC",
+      price: option.valor || 0,
+      estimatedDays: option.prazo || 0,
+      transportadora: option.transportadora || "Correios",
+      cep: cep,
+      originalQuantity: quantity, // ✅ SALVAR QUANTIDADE ORIGINAL
+      currentQuantity: quantity,  // ✅ QUANTIDADE ATUAL
+    })
+
     if (onFreteSelect) {
       onFreteSelect(option) // Passar para o componente pai
     }
@@ -41,29 +61,28 @@ export default function FreteCard({ produto, selectedPackaging, onFreteSelect })
 
         {freteOptions.length > 0 && (
           <div className="space-y-3">
-            <h3 className="font-medium text-gray-900">
-              Opções de entrega:
-            </h3>
+            <h3 className="font-medium text-gray-900">Opções de entrega:</h3>
             {freteOptions.map((option, index) => (
-              <FreteOption 
-                key={index} 
+              <FreteOption
+                key={index}
                 option={option}
-                isSelected={selectedFrete === option}
-                onSelect={handleFreteSelect}
+                isSelected={selectedFrete?.servico === option.servico}
+                onSelect={() => handleFreteSelect(option)}
               />
             ))}
-            
-            {/* 🎯 Resumo da seleção */}
-            {selectedFrete && (
-              <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                <p className="text-sm font-medium text-blue-800">
-                  ✅ Frete selecionado: {selectedFrete.transportadora} - {selectedFrete.servico}
-                </p>
-                <p className="text-sm text-blue-600">
-                  R$ {selectedFrete.valor.toFixed(2).replace(".", ",")} - {selectedFrete.prazo} dias úteis
-                </p>
-              </div>
-            )}
+          </div>
+        )}
+
+        {selectedFrete && (
+          <div className="mt-4 rounded-lg border border-green-200 bg-green-50 p-3">
+            <p className="text-sm font-medium text-green-700">
+              ✅ Frete selecionado: {selectedFrete.transportadora} -{" "}
+              {selectedFrete.servico}
+            </p>
+            <p className="text-xs text-green-600">
+              R$ {selectedFrete.valor.toFixed(2)} • {selectedFrete.prazo} dias
+              úteis
+            </p>
           </div>
         )}
       </CardContent>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { validateCep, formatCep } from "@/utils/cepUtils"
 
-export const useFrete = (produto, selectedPackaging) => {
+export const useFrete = (produto, selectedPackaging, quantity = 1) => {
   const [cep, setCep] = useState("")
   const [loading, setLoading] = useState(false)
   const [freteOptions, setFreteOptions] = useState([])
@@ -12,35 +12,49 @@ export const useFrete = (produto, selectedPackaging) => {
   useEffect(() => {
     if (freteOptions.length > 0 && !selectedFrete) {
       // Procurar PAC primeiro
-      const pacOption = freteOptions.find(opt => 
-        opt.servico?.toLowerCase().includes('pac') ||
-        opt.codigo?.toLowerCase().includes('pac')
+      const pacOption = freteOptions.find(
+        (opt) =>
+          opt.servico?.toLowerCase().includes("pac") ||
+          opt.codigo?.toLowerCase().includes("pac"),
       )
-      
+
       // Se não encontrar PAC, pegar a opção mais barata
       const defaultOption = pacOption || freteOptions[0]
       setSelectedFrete(defaultOption)
     }
   }, [freteOptions, selectedFrete])
 
+  // ✅ Recalcular automaticamente quando quantity mudar
+  useEffect(() => {
+    if (cep && validateCep(cep)) { // ✅ Remover a condição freteOptions.length > 0
+      console.log(
+        "🔄 Quantidade mudou para:",
+        quantity,
+        "- Recalculando frete...",
+      )
+      calcularFrete()
+    }
+  }, [quantity])
+
   const calcularFrete = async () => {
     if (!validateCep(cep)) {
-      setError("CEP deve ter 8 dígitos")
+      setError("CEP inválido")
       return
     }
 
     setLoading(true)
     setError("")
-    setSelectedFrete(null) // 🔄 Reset seleção
 
     try {
       const cepFormatted = formatCep(cep)
 
-      // Dados do produto padronizados
+      // ✅ Dados do produto padronizados COM QUANTIDADE
       const produtoData = {
         ...produto,
-        preco: selectedPackaging?.salePrice || selectedPackaging?.price || 0,
-        peso: selectedPackaging?.boxWeight || 1,
+        preco:
+          (selectedPackaging?.salePrice || selectedPackaging?.price || 0) *
+          quantity, // ✅ Multiplicar preço
+        peso: (selectedPackaging?.boxWeight || 1) * quantity, // ✅ Multiplicar peso
         altura: selectedPackaging?.boxHeight || 10,
         largura: selectedPackaging?.boxWidth || 10,
         comprimento: selectedPackaging?.boxLength || 10,
@@ -71,15 +85,15 @@ export const useFrete = (produto, selectedPackaging) => {
           }),
         }),
 
-        // Paulineris
-        fetch(`/api/frete/paulineris`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            cep: cepFormatted,
-            produto: produtoData,
-          }),
-        }),
+        // 🚫 Paulineris - TEMPORARIAMENTE DESABILITADA (retornando R$ 0)
+        // fetch(`/api/frete/paulineris`, {
+        //   method: "POST",
+        //   headers: { "Content-Type": "application/json" },
+        //   body: JSON.stringify({
+        //     cep: cepFormatted,
+        //     produto: produtoData,
+        //   }),
+        // }),
       ]
 
       const results = await Promise.allSettled(requests)
@@ -91,23 +105,23 @@ export const useFrete = (produto, selectedPackaging) => {
           const response = results[0].value
           if (response.ok) {
             const frenetData = await response.json()
-            console.log('Frenet data:', frenetData) // 🐛 Debug
-            
+            console.log("Frenet data:", frenetData) // 🐛 Debug
+
             if (frenetData.opcoes && frenetData.opcoes.length > 0) {
               // 🎯 Filtro simples: bloquear APENAS Jadlog
               const semJadlog = frenetData.opcoes.filter((opt) => {
-                const nome = (opt.transportadora || '').toLowerCase()
-                return !nome.includes('jadlog')
+                const nome = (opt.transportadora || "").toLowerCase()
+                return !nome.includes("jadlog")
               })
 
               options.push(
                 ...semJadlog.map((opt) => ({
                   transportadora: opt.transportadora || "Correios",
                   valor: parseFloat(opt.valor) || 0,
-                  prazo: opt.prazo || 'N/A',
+                  prazo: opt.prazo || "N/A",
                   servico: opt.codigo || "PAC/SEDEX",
                   color: "blue",
-                }))
+                })),
               )
             }
           }
@@ -122,16 +136,16 @@ export const useFrete = (produto, selectedPackaging) => {
           const response = results[1].value
           if (response.ok) {
             const baspressData = await response.json()
-            console.log('Braspress data:', baspressData) // 🐛 Debug
+            console.log("Braspress data:", baspressData) // 🐛 Debug
             if (baspressData.opcoes && baspressData.opcoes.length > 0) {
               options.push(
                 ...baspressData.opcoes.map((opt) => ({
                   transportadora: "Braspress",
                   valor: parseFloat(opt.valor) || 0, // 🛡️ Garantir que é número
-                  prazo: opt.prazo || 'N/A',
+                  prazo: opt.prazo || "N/A",
                   servico: opt.servico || "Rodoviário",
                   color: "green",
-                }))
+                })),
               )
             }
           }
@@ -140,29 +154,29 @@ export const useFrete = (produto, selectedPackaging) => {
         }
       }
 
-      // 🏃 PROCESSAR PAULINERIS
-      if (results[2].status === "fulfilled") {
-        try {
-          const response = results[2].value
-          if (response.ok) {
-            const paulinerisData = await response.json()
-            console.log('Paulineris data:', paulinerisData) // 🐛 Debug
-            if (paulinerisData.opcoes && paulinerisData.opcoes.length > 0) {
-              options.push(
-                ...paulinerisData.opcoes.map((opt) => ({
-                  transportadora: "Paulineris",
-                  valor: parseFloat(opt.valor) || 0, // 🛡️ Garantir que é número
-                  prazo: opt.prazo || 'N/A',
-                  servico: opt.servico || "Expresso",
-                  color: "orange",
-                }))
-              )
-            }
-          }
-        } catch (e) {
-          console.log("Erro ao processar Paulineris:", e)
-        }
-      }
+      // 🏃 PROCESSAR PAULINERIS - TEMPORARIAMENTE DESABILITADA
+      // if (results[2].status === "fulfilled") {
+      //   try {
+      //     const response = results[2].value
+      //     if (response.ok) {
+      //       const paulinerisData = await response.json()
+      //       console.log('Paulineris data:', paulinerisData) // 🐛 Debug
+      //       if (paulinerisData.opcoes && paulinerisData.opcoes.length > 0) {
+      //         options.push(
+      //           ...paulinerisData.opcoes.map((opt) => ({
+      //             transportadora: "Paulineris",
+      //             valor: parseFloat(opt.valor) || 0, // 🛡️ Garantir que é número
+      //             prazo: opt.prazo || 'N/A',
+      //             servico: opt.servico || "Expresso",
+      //             color: "orange",
+      //           }))
+      //         )
+      //       }
+      //     }
+      //   } catch (e) {
+      //     console.log("Erro ao processar Paulineris:", e)
+      //   }
+      // }
 
       // 🏆 ORDENAR POR PREÇO
       options.sort((a, b) => a.valor - b.valor)
@@ -173,7 +187,7 @@ export const useFrete = (produto, selectedPackaging) => {
       }
     } catch (error) {
       setError("Erro ao calcular frete")
-      console.error('Erro geral:', error)
+      console.error("Erro geral:", error)
     } finally {
       setLoading(false)
     }

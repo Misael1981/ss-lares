@@ -8,7 +8,7 @@ import {
 } from "../ui/sheet"
 import { useCart } from "@/contexts/CartContext"
 import { Button } from "../ui/button"
-import { ShoppingCart, X, Plus, Minus, Trash2 } from "lucide-react"
+import { ShoppingCart, X, Plus, Minus, Trash2, Truck } from "lucide-react"
 import Image from "next/image"
 
 const SheetCart = () => {
@@ -17,6 +17,7 @@ const SheetCart = () => {
     closeCart,
     items,
     totals,
+    shipping,
     updateQuantity,
     removeItem,
     itemCount,
@@ -139,6 +140,32 @@ const SheetCart = () => {
                     </div>
                   </div>
                 ))}
+
+                {/* 🚚 AVISO SOBRE FRETE */}
+                {items.length > 0 &&
+                  (!shipping.method || shipping.method === "standard") && (
+                    <div className="rounded-lg border border-orange-200 bg-orange-50 p-4">
+                      <div className="flex items-center gap-2 text-orange-700">
+                        <Truck className="h-4 w-4" />
+                        <span className="text-sm font-medium">
+                          Calcule o frete
+                        </span>
+                      </div>
+                      <p className="mt-1 text-xs text-orange-600">
+                        Vá até a página do produto para calcular o frete e
+                        escolher a melhor opção de entrega.
+                      </p>
+                    </div>
+                  )}
+
+                {shipping.needsRecalculation && (
+                  <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-3">
+                    <p className="text-sm text-yellow-700">
+                      ⚠️ Quantidade alterada. Recalcule o frete na página do
+                      produto.
+                    </p>
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -154,8 +181,20 @@ const SheetCart = () => {
                   R$ {totals.subtotal.toFixed(2)}
                 </span>
               </div>
+
+              {/* 🚚 DETALHES DO FRETE MELHORADOS */}
               <div className="flex justify-between text-sm">
-                <span className="text-gray-600">Frete:</span>
+                <div className="flex flex-col">
+                  <span className="text-gray-600">Frete:</span>
+                  {shipping.method && shipping.method !== "standard" && (
+                    <span className="text-xs text-gray-500">
+                      {shipping.transportadora} - {shipping.method}
+                      {shipping.estimatedDays > 0 &&
+                        ` • ${shipping.estimatedDays} dias`}
+                      {shipping.cep && ` • CEP: ${shipping.cep}`}
+                    </span>
+                  )}
+                </div>
                 <span className="font-medium">
                   {totals.shipping === 0 ? (
                     <span className="text-green-600">Grátis</span>
@@ -164,6 +203,7 @@ const SheetCart = () => {
                   )}
                 </span>
               </div>
+
               <div className="border-t pt-3">
                 <div className="flex items-center justify-between">
                   <span className="text-lg font-bold text-gray-900">

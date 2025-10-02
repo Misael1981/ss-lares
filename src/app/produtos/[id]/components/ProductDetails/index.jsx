@@ -34,9 +34,27 @@ const ProductDetails = ({ product }) => {
     : [product.imageUrl]
 
   const handleAddToCart = () => {
-    addItem(product)
+    // ✅ Usar o preço da caixa selecionada, não o preço unitário
+    const productForCart = {
+      ...product,
+      price:
+        selectedPackaging?.salePrice ||
+        selectedPackaging?.price ||
+        product.price,
+      // Adicionar informações da embalagem para referência
+      packaging: selectedPackaging,
+    }
+
+    addItem(productForCart)
     openCart()
-    console.log("✅ Produto adicionado:", product.name)
+    console.log(
+      "✅ Produto adicionado:",
+      product.name,
+      "- Preço da caixa:",
+      productForCart.price,
+      "- Quantidade:",
+      quantity,
+    )
   }
 
   return (
@@ -149,7 +167,11 @@ const ProductDetails = ({ product }) => {
             </CardContent>
           </Card>
 
-          <FreteCard produto={product} selectedPackaging={selectedPackaging} />
+          <FreteCard
+            produto={product}
+            selectedPackaging={selectedPackaging}
+            quantity={quantity} // ✅ Passar quantidade atual
+          />
 
           <Card>
             <CardContent className="p-6">
