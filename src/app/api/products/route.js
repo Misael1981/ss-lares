@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import prisma from '@/lib/prisma'
+import { invalidateDashboardCache } from '@/lib/dashboard'
 
 // GET - Listar todos os produtos
 export async function GET() {
@@ -55,6 +56,7 @@ export async function POST(request) {
       }
     })
 
+    await invalidateDashboardCache()
     return NextResponse.json(product, { status: 201 })
   } catch (error) {
     console.error('Erro ao criar produto:', error)
