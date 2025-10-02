@@ -5,7 +5,11 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Package, Check, Ruler, Weight } from "lucide-react"
 
-const ProductPackaging = ({ product, selectedPackaging, onPackagingSelect }) => {
+const ProductPackaging = ({
+  product,
+  selectedPackaging,
+  onPackagingSelect,
+}) => {
   // ✅ Não precisa mais de useState interno!
   // O estado vem do componente pai
 
@@ -44,6 +48,19 @@ const ProductPackaging = ({ product, selectedPackaging, onPackagingSelect }) => 
                         Number(packaging.packagePerBox || 0)}{" "}
                       {packaging.unitLabel || "unidades"}
                     </Badge>
+
+                    {/* ✨ NOVO: Mostrar quantos pacotes por caixa */}
+                    {packaging.quantityPerPackage && (
+                      <Badge variant="secondary" className="text-blue-600">
+                        {packaging.quantityPerPackage} peças/pacote
+                      </Badge>
+                    )}
+                    {packaging.packagePerBox && (
+                      <Badge variant="secondary" className="text-blue-600">
+                        {packaging.packagePerBox} pacotes/caixa
+                      </Badge>
+                    )}
+
                     {packaging.salePrice && (
                       <Badge variant="destructive" className="text-xs">
                         PROMOÇÃO
@@ -53,6 +70,14 @@ const ProductPackaging = ({ product, selectedPackaging, onPackagingSelect }) => 
 
                   {/* ✨ NOVA SEÇÃO: Dimensões e Peso */}
                   <div className="mb-3 flex flex-wrap items-center gap-3 text-xs text-gray-500">
+                    {/* ✨ NOVO: Pacotes por caixa */}
+                    {packaging.packagePerBox && (
+                      <div className="flex items-center gap-1">
+                        <Package className="h-3 w-3" />
+                        <span>{packaging.packagePerBox} pacotes por caixa</span>
+                      </div>
+                    )}
+
                     {/* Dimensões */}
                     {(packaging.boxLength ||
                       packaging.boxWidth ||
@@ -98,7 +123,7 @@ const ProductPackaging = ({ product, selectedPackaging, onPackagingSelect }) => 
                           </span>
                         </div>
                       ) : (
-                        <span className="text-lg font-bold text-gray-900">
+                        <span className="text-lg font-bold text-green-600">
                           R$ {packaging.price.toFixed(2)}
                         </span>
                       )}

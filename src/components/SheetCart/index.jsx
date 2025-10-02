@@ -65,7 +65,7 @@ const SheetCart = () => {
                 {items.map((item) => (
                   <div
                     key={item.id}
-                    className="flex gap-3 rounded-lg border bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
+                    className="flex gap-3 rounded-lg border p-4 shadow-sm transition-shadow hover:shadow-md"
                   >
                     <div className="flex-shrink-0">
                       <Image
@@ -81,7 +81,7 @@ const SheetCart = () => {
                     </div>
 
                     <div className="min-w-0 flex-1">
-                      <h4 className="truncate text-sm font-medium text-gray-900">
+                      <h4 className="truncate text-sm font-medium">
                         {item.name}
                       </h4>
                       <p className="mt-1 text-lg font-bold text-green-600">
@@ -90,7 +90,7 @@ const SheetCart = () => {
 
                       {/* CONTROLES DE QUANTIDADE */}
                       <div className="mt-3 flex items-center justify-between">
-                        <div className="flex items-center gap-2 rounded-lg bg-gray-50 p-1 text-gray-800">
+                        <div className="flex items-center gap-2 rounded-lg p-1 text-gray-500">
                           <Button
                             size="sm"
                             variant="ghost"
@@ -133,7 +133,7 @@ const SheetCart = () => {
                         <span className="text-sm text-gray-500">
                           Subtotal:{" "}
                         </span>
-                        <span className="font-semibold text-gray-900">
+                        <span className="font-semibold text-green-600">
                           R$ {(item.price * item.quantity).toFixed(2)}
                         </span>
                       </div>
@@ -173,7 +173,7 @@ const SheetCart = () => {
 
         {/* 💰 RESUMO FIXO - SEM SCROLL */}
         {items.length > 0 && (
-          <div className="-mx-6 mt-4 flex-shrink-0 border-t bg-gray-50 px-6 pb-6 pt-4">
+          <div className="-mx-6 mt-4 flex-shrink-0 border-t px-6 pb-6 pt-4">
             <div className="space-y-3">
               <div className="flex justify-between text-sm">
                 <span className="text-gray-600">Subtotal:</span>
