@@ -80,9 +80,7 @@ const DashboardPage = () => {
       {/* Header */}
       <div className="flex flex-col space-y-2">
         <h1 className="text-3xl font-bold tracking-tight">Painel Principal</h1>
-        <p className="text-muted-foreground">
-          Visão geral do seu e-commerce de materiais de construção
-        </p>
+        <p className="text-muted-foreground">Visão geral do seu e-commerce</p>
       </div>
 
       {/* Cards de Métricas REAIS */}

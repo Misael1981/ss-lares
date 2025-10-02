@@ -14,8 +14,12 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import {
+  Briefcase,
+  Handshake,
+  Home,
+  Info,
   LayoutDashboard,
-  ListOrdered,
+  Package,
   ScanQrCode,
   Settings,
   Store,
@@ -56,10 +60,38 @@ const items = [
   },
 ]
 
+const publicPagesItems = [
+  {
+    title: "Home",
+    url: "/",
+    icon: Home,
+  },
+  {
+    title: "Produtos",
+    url: "/produtos",
+    icon: Package,
+  },
+  {
+    title: "Sobre Nós",
+    url: "/sobre-nos",
+    icon: Info,
+  },
+  {
+    title: "Seja Parceiro",
+    url: "/seja-parceiro",
+    icon: Handshake,
+  },
+  {
+    title: "Trabalhe Conosco",
+    url: "/trabalhe-conosco",
+    icon: Briefcase,
+  },
+]
+
 export function AppSidebar() {
   return (
     <Sidebar>
-      <SidebarHeader className="flex items-center justify-center">
+      <SidebarHeader className="mt-6 flex items-center justify-center">
         <LogoImage />
       </SidebarHeader>
       <SidebarContent>
@@ -68,6 +100,23 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <a href={item.url}>
+                      <item.icon />
+                      <span>{item.title}</span>
+                    </a>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupLabel>Páginas Públicas</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {publicPagesItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <a href={item.url}>
