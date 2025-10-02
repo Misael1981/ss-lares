@@ -1,6 +1,44 @@
 import { unstable_cache } from "next/cache"
 import prisma, { prismaWithRetry } from "./prisma"
 
+// Função auxiliar para vendas por mês - MOVIDA PARA CIMA!
+async function getSalesByMonth() {
+  const sixMonthsAgo = new Date()
+  sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6)
+
+  try {
+    const salesData = await prisma.order.groupBy({
+      by: ["createdAt"],
+      where: {
+        status: "COMPLETED",
+        createdAt: { gte: sixMonthsAgo },
+      },
+      _sum: { total: true },
+      _count: { id: true },
+    })
+
+    // Processar dados por mês
+    const monthlyData = {}
+    salesData.forEach((sale) => {
+      const month = sale.createdAt.toISOString().slice(0, 7) // YYYY-MM
+      if (!monthlyData[month]) {
+        monthlyData[month] = { revenue: 0, orders: 0 }
+      }
+      monthlyData[month].revenue += sale._sum.total || 0
+      monthlyData[month].orders += sale._count.id
+    })
+
+    return Object.entries(monthlyData).map(([month, data]) => ({
+      month,
+      revenue: data.revenue,
+      orders: data.orders,
+    }))
+  } catch (error) {
+    console.error("❌ Erro ao buscar vendas por mês:", error)
+    return [] // Retorna array vazio em caso de erro
+  }
+}
+
 // 🔥 VERSÃO COM CACHE - ESTRUTURA CORRIGIDA!
 export const getDashboardData = unstable_cache(
   async () => {
@@ -130,45 +168,9 @@ export const getDashboardData = unstable_cache(
   },
 )
 
-// Função auxiliar para vendas por mês
-async function getSalesByMonth() {
-  const sixMonthsAgo = new Date()
-  sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6)
 
-  try {
-    const salesData = await prisma.order.groupBy({
-      by: ["createdAt"],
-      where: {
-        status: "COMPLETED",
-        createdAt: { gte: sixMonthsAgo },
-      },
-      _sum: { total: true },
-      _count: { id: true },
-    })
 
-    // Processar dados por mês
-    const monthlyData = {}
-    salesData.forEach((sale) => {
-      const month = sale.createdAt.toISOString().slice(0, 7) // YYYY-MM
-      if (!monthlyData[month]) {
-        monthlyData[month] = { revenue: 0, orders: 0 }
-      }
-      monthlyData[month].revenue += sale._sum.total || 0
-      monthlyData[month].orders += sale._count.id
-    })
-
-    return Object.entries(monthlyData).map(([month, data]) => ({
-      month,
-      revenue: data.revenue,
-      orders: data.orders,
-    }))
-  } catch (error) {
-    console.error("❌ Erro ao buscar vendas por mês:", error)
-    return [] // Retorna array vazio em caso de erro
-  }
-}
-
-// 🔄 FUNÇÃO PARA INVALIDAR CACHE
+// 🔄 Função para invalidar cache quando dados mudarem
 export async function invalidateDashboardCache() {
   const { revalidateTag } = await import("next/cache")
   revalidateTag("dashboard")
