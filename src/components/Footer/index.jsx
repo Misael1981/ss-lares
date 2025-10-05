@@ -1,4 +1,4 @@
-import prisma from "@/lib/prisma"
+import { getCompanyInfo } from "@/lib/company"
 import LogoImage from "../Header/components/LogoImage"
 import { Card, CardContent } from "../ui/card"
 import Address from "./components/Adress"
@@ -6,12 +6,7 @@ import Contact from "./components/contact"
 import InstitutionalLinks from "./components/InstitutionalLinks"
 
 const Footer = async () => {
-  const companyData = await prisma.companyInfo.findFirst({
-    include: {
-      phones: true,
-      address: true,
-    },
-  })
+  const companyData = await getCompanyInfo()
   return (
     <footer className="mt-4">
       <Card>

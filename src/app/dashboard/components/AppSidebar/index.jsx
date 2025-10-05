@@ -50,7 +50,7 @@ const items = [
   },
   {
     title: "Dados da Ss Lares",
-    url: "#",
+    url: "/dashboard/dados-empresa",
     icon: TextSearch,
   },
   {

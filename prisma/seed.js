@@ -710,7 +710,7 @@ async function seedDataBase() {
 
     //  SEED DA EMPRESA
     await prisma.companyInfo.upsert({
-      where: { id: 1 }, // ✅ Mudar para ID
+      where: { id: 1 },
       update: {
         name: "SS Lares",
         email: "sslaresmg@gmail.com",

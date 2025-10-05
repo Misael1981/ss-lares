@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server'
-import { updateCompanyInfo, revalidateCompany } from '@/lib/company'
+import { createCatalog, revalidateCompany } from '@/lib/company'
 
-export async function PUT(request) {
+export async function POST(request) {
   try {
     const data = await request.json()
     
-    const result = await updateCompanyInfo(data)
+    const result = await createCatalog(data)
     
     if (result.success) {
       revalidateCompany()
@@ -14,7 +14,7 @@ export async function PUT(request) {
       return NextResponse.json(result, { status: 400 })
     }
   } catch (error) {
-    console.error('Erro na API company:', error)
+    console.error('Erro na API catalogs:', error)
     return NextResponse.json(
       { success: false, error: 'Erro interno do servidor' },
       { status: 500 }
