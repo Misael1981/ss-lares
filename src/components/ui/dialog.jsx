@@ -21,7 +21,8 @@ const DialogOverlay = React.forwardRef(({ className, ...props }, ref) => (
       "fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
       className
     )}
-    {...props} />
+    {...props}
+  />
 ))
 DialogOverlay.displayName = DialogPrimitive.Overlay.displayName
 
@@ -52,7 +53,8 @@ const DialogHeader = ({
 }) => (
   <div
     className={cn("flex flex-col space-y-1.5 text-center sm:text-left", className)}
-    {...props} />
+    {...props}
+  />
 )
 DialogHeader.displayName = "DialogHeader"
 
@@ -62,7 +64,8 @@ const DialogFooter = ({
 }) => (
   <div
     className={cn("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className)}
-    {...props} />
+    {...props}
+  />
 )
 DialogFooter.displayName = "DialogFooter"
 
@@ -82,6 +85,23 @@ const DialogDescription = React.forwardRef(({ className, ...props }, ref) => (
 ))
 DialogDescription.displayName = DialogPrimitive.Description.displayName
 
+// ✅ COMPONENTE PARA ESCONDER VISUALMENTE MAS MANTER ACESSIBILIDADE
+const VisuallyHidden = React.forwardRef(({ className, ...props }, ref) => (
+  <span
+    ref={ref}
+    className={cn(
+      "absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0",
+      className
+    )}
+    style={{
+      clipPath: "inset(50%)",
+      clip: "rect(0 0 0 0)"
+    }}
+    {...props}
+  />
+))
+VisuallyHidden.displayName = "VisuallyHidden"
+
 export {
   Dialog,
   DialogPortal,
@@ -93,4 +113,5 @@ export {
   DialogFooter,
   DialogTitle,
   DialogDescription,
+  VisuallyHidden,
 }

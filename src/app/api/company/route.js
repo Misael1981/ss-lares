@@ -1,6 +1,32 @@
 import { NextResponse } from 'next/server'
-import { updateCompanyInfo, revalidateCompany } from '@/lib/company'
+import { getCompanyInfo, updateCompanyInfo, revalidateCompany } from '@/lib/company'
 
+// ✅ MÉTODO GET - Para buscar dados da empresa
+export async function GET() {
+  try {
+    const companyInfo = await getCompanyInfo()
+    
+    if (companyInfo) {
+      return NextResponse.json({
+        success: true,
+        company: companyInfo
+      })
+    } else {
+      return NextResponse.json({
+        success: false,
+        error: 'Dados da empresa não encontrados'
+      }, { status: 404 })
+    }
+  } catch (error) {
+    console.error('Erro ao buscar dados da empresa:', error)
+    return NextResponse.json(
+      { success: false, error: 'Erro interno do servidor' },
+      { status: 500 }
+    )
+  }
+}
+
+// ✅ MÉTODO PUT - Para atualizar dados da empresa
 export async function PUT(request) {
   try {
     const data = await request.json()
